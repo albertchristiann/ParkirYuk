@@ -30,5 +30,9 @@
             android:id="@+id/nav_about_us"
             android:title="About Us"
             android:icon="@drawable/about_us_icon"/>
+        <item
+            android:id="@+id/nav_feedback"
+            android:title="Feedback"
+            android:icon="@drawable/feedback_icon"/>
     </group>
 </menu>
