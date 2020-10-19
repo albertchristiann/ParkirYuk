@@ -80,6 +80,7 @@ public class HomeActivity extends AppCompatActivity {
         if (fAuth.getCurrentUser() != null){
             menu.findItem(R.id.nav_logout).setVisible(true);
             menu.findItem(R.id.nav_profile).setVisible(true);
+            menu.findItem(R.id.nav_login).setVisible(false);
         }
     }
 
