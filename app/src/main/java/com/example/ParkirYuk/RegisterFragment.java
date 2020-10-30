@@ -126,7 +126,7 @@ public class RegisterFragment extends Fragment {
                     documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Log.d(TAG,"onSuccess: user profile is created for "+userID);
+                            Log.d(TAG,"user profile is created for "+userID);
                         }
                     });
                 }else {

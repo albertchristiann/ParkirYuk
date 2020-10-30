@@ -9,13 +9,23 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -30,9 +40,11 @@ import androidx.appcompat.widget.Toolbar;
 public class HomeActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
     FirebaseAuth fAuth;
+    FirebaseFirestore fStore;
     DrawerLayout drawer;
     NavigationView navigationView;
     private AppBarConfiguration mAppBarConfiguration;
+    private String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +54,7 @@ public class HomeActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 //        FloatingActionButton fab = findViewById(R.id.fab);
         fAuth = FirebaseAuth.getInstance();
-
+        fStore = FirebaseFirestore.getInstance();
         //mail logo
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -57,7 +69,7 @@ public class HomeActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_login, R.id.nav_profile,R.id.nav_history,R.id.nav_about_us)
+                R.id.nav_home, R.id.nav_login, R.id.nav_profile,R.id.nav_history,R.id.nav_about_us,R.id.nav_feedback)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -76,6 +88,8 @@ public class HomeActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        updateNavHeader();
 
         if (fAuth.getCurrentUser() != null){
             menu.findItem(R.id.nav_logout).setVisible(true);
@@ -98,32 +112,39 @@ public class HomeActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-//    private static void logout(Activity activity){
-//        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-//        builder.setTitle("Logout");
-//        builder.setMessage("Are you sure you want to logout ?");
-//        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                activity.finishAffinity();
-//                System.exit(0);
-//            }
-//        });
-//        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                dialog.dismiss();
-//            }
-//        });
-//        builder.show();
-//    }
-
     @Override
     public void onBackPressed() {
         if(drawer.isDrawerOpen(GravityCompat.START)){
             drawer.closeDrawer(GravityCompat.START);
         }else{
             super.onBackPressed();
+        }
+    }
+
+    public void updateNavHeader(){
+        View headerView = navigationView.getHeaderView(0);
+        TextView navUsername = headerView.findViewById(R.id.nav_username);
+
+        if (fAuth.getCurrentUser() != null) {
+            navUsername.setVisibility(View.VISIBLE);
+            userID = fAuth.getCurrentUser().getUid();
+            DocumentReference docRef = fStore.collection("users").document(userID);
+            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document != null && document.exists()) {
+                            String userString = document.getString("Name");
+                            navUsername.setText("Welcome, " + userString);
+                        }else {
+                            Log.d(TAG, "No such document");
+                        }
+                    }else {
+                        Log.d(TAG, "get failed with ", task.getException());
+                    }
+                }
+            });
         }
     }
 }
