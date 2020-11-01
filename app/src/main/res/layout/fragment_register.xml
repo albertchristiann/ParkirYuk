@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.ParkirYuk.RegisterFragment">
+    tools:context="com.example.ParkirYuk.RegisterFragment"
+    android:background="@color/colorWhite">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fragmentRegister"
@@ -12,8 +13,8 @@
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="315dp"
-            android:layout_height="275dp"
+            android:layout_width="260dp"
+            android:layout_height="210dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/box"
             app:layout_constraintBottom_toBottomOf="@+id/password"
@@ -29,7 +30,7 @@
             android:background="@drawable/button_shape"
             android:text="Register"
             android:textColor="#FFFFFF"
-            android:fontFamily="@font/montserrat"
+            android:fontFamily="@font/montserrat_light"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,153 +38,144 @@
 
         <TextView
             android:id="@+id/textViewUsername"
-            android:layout_width="90dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/layout_text_width"
+            android:layout_height="@dimen/layout_text_height"
             android:layout_marginStart="15dp"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="30dp"
-            android:fontFamily="@font/montserrat"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/montserrat_light"
             android:gravity="center_vertical"
             android:text="Username"
-            android:textSize="16sp"
+            android:textSize="11sp"
             app:layout_constraintStart_toStartOf="@+id/textView2"
-            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+            app:layout_constraintTop_toTopOf="@+id/textView2" />
 
         <TextView
             android:id="@+id/textViewa"
             android:layout_width="10dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="30dp"
-            android:fontFamily="@font/montserrat"
+            android:layout_height="@dimen/layout_text_height"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/montserrat_light"
             android:gravity="center"
             android:text=" : "
-            android:textSize="16sp"
+            android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/textViewUsername"
-            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+            app:layout_constraintTop_toTopOf="@+id/textView2" />
 
         <EditText
             android:id="@+id/Username"
-            android:layout_width="180dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="30dp"
+            android:layout_width="@dimen/layout_edit_text_width"
+            android:layout_height="@dimen/layout_text_height"
+            android:layout_marginTop="15dp"
+            android:textSize="@dimen/text_size"
             android:inputType="textPersonName"
-            android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/textViewa"
-            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+            app:layout_constraintTop_toTopOf="@+id/textView2" />
 
         <TextView
             android:id="@+id/textViewEmail"
-            android:layout_width="90dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/layout_text_width"
+            android:layout_height="@dimen/layout_text_height"
             android:layout_marginStart="15dp"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:fontFamily="@font/montserrat"
+            android:fontFamily="@font/montserrat_light"
             android:gravity="center_vertical"
             android:text="Email"
-            android:textSize="16sp"
+            android:textSize="11sp"
             app:layout_constraintStart_toStartOf="@+id/textView2"
             app:layout_constraintTop_toBottomOf="@+id/textViewUsername" />
 
         <TextView
             android:id="@+id/textViewb"
             android:layout_width="10dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="15dp"
-            android:fontFamily="@font/montserrat"
+            android:layout_height="@dimen/layout_text_height"
+            android:fontFamily="@font/montserrat_light"
             android:gravity="center"
             android:text=" : "
-            android:textSize="16sp"
+            android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/textViewEmail"
             app:layout_constraintTop_toBottomOf="@+id/textViewUsername" />
 
         <EditText
             android:id="@+id/Email"
-            android:layout_width="180dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="15dp"
+            android:layout_width="@dimen/layout_edit_text_width"
+            android:layout_height="@dimen/layout_text_height"
             android:inputType="textPersonName"
-            android:textSize="16sp"
+            android:textSize="@dimen/text_size"
             app:layout_constraintStart_toEndOf="@+id/textViewb"
             app:layout_constraintTop_toBottomOf="@+id/Username" />
 
         <TextView
             android:id="@+id/textViewPassword"
-            android:layout_width="90dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/layout_text_width"
+            android:layout_height="@dimen/layout_text_height"
             android:layout_marginStart="15dp"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:fontFamily="@font/montserrat"
+            android:fontFamily="@font/montserrat_light"
             android:gravity="center_vertical"
             android:text="Password"
-            android:textSize="16sp"
+            android:textSize="11sp"
             app:layout_constraintStart_toStartOf="@+id/textView2"
             app:layout_constraintTop_toBottomOf="@+id/textViewEmail" />
 
         <TextView
             android:id="@+id/textViewc"
             android:layout_width="10dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="15dp"
-            android:fontFamily="@font/montserrat"
+            android:layout_height="@dimen/layout_text_height"
+            android:fontFamily="@font/montserrat_light"
             android:gravity="center"
             android:text=" : "
-            android:textSize="16sp"
+            android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/textViewPassword"
             app:layout_constraintTop_toBottomOf="@+id/textViewEmail" />
 
         <EditText
             android:id="@+id/Password"
-            android:layout_width="180dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="15dp"
+            android:layout_width="@dimen/layout_edit_text_width"
+            android:layout_height="@dimen/layout_text_height"
             android:inputType="textPassword"
-            android:textSize="16sp"
+            android:textSize="@dimen/text_size"
             app:layout_constraintStart_toEndOf="@+id/textViewc"
             app:layout_constraintTop_toBottomOf="@+id/Email" />
 
         <TextView
             android:id="@+id/textViewConfirmPassword"
-            android:layout_width="90dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/layout_text_width"
+            android:layout_height="@dimen/layout_text_height"
             android:layout_marginStart="15dp"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:fontFamily="@font/montserrat"
+            android:fontFamily="@font/montserrat_light"
             android:gravity="center_vertical"
             android:text="Confirm \nPassword"
-            android:textSize="16sp"
+            android:textSize="11sp"
             app:layout_constraintStart_toStartOf="@+id/textView2"
             app:layout_constraintTop_toBottomOf="@+id/textViewPassword" />
 
         <TextView
             android:id="@+id/textViewd"
             android:layout_width="10dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="15dp"
-            android:fontFamily="@font/montserrat"
+            android:layout_height="@dimen/layout_text_height"
+            android:fontFamily="@font/montserrat_light"
             android:gravity="center"
             android:text=" : "
-            android:textSize="16sp"
+            android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/textViewConfirmPassword"
             app:layout_constraintTop_toBottomOf="@+id/textViewPassword" />
 
         <EditText
             android:id="@+id/ConfirmPassword"
-            android:layout_width="180dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="15dp"
+            android:layout_width="@dimen/layout_edit_text_width"
+            android:layout_height="@dimen/layout_text_height"
             android:inputType="textPassword"
-            android:textSize="16sp"
+            android:textSize="@dimen/text_size"
             app:layout_constraintStart_toEndOf="@+id/textViewd"
             app:layout_constraintTop_toBottomOf="@+id/Password" />
 
         <ImageView
             android:id="@+id/imageView3"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
-            android:layout_marginTop="25dp"
+            android:layout_width="@dimen/logo_widht"
+            android:layout_height="@dimen/logo_height"
+            android:layout_marginTop="20dp"
             android:src="@mipmap/logo_parkir"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -194,7 +186,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:fontFamily="@font/montserrat"
+            android:fontFamily="@font/montserrat_light"
             android:text="Already Registered ? Login Here"
             android:textColor="#604949"
             app:layout_constraintEnd_toEndOf="parent"

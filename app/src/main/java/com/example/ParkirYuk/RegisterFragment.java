@@ -36,7 +36,6 @@ public class RegisterFragment extends Fragment {
     TextView fLoginBtn;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
-    Boolean isDataValid = false;
     String userID;
 
     @Override
@@ -50,6 +49,7 @@ public class RegisterFragment extends Fragment {
         fconfPass = v.findViewById(R.id.ConfirmPassword);
         fRegister = (Button) v.findViewById(R.id.Register);
         fLoginBtn = (TextView) v.findViewById(R.id.Login);
+
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
 
@@ -75,47 +75,85 @@ public class RegisterFragment extends Fragment {
         fRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validateData(femail);
-                validateData(fusername);
-                validateData(fpassword);
-                validateData(fconfPass);
-
-                if (!fpassword.getText().toString().equals(fconfPass.getText().toString())) {
-                    isDataValid = false;
-                    fconfPass.setError("Password do not match");
-                } else {
-                    isDataValid = true;
-                }
-
-                if (isDataValid) {
-                    CreateNewAccount();
-                }
-
+                createNewUser();
             }
         });
 
         return v;
     }
 
-    public void validateData(EditText field) {
-        if (field.getText().toString().isEmpty()) {
-            isDataValid = false;
-            field.setError("Required Field");
-        } else {
-            isDataValid = true;
+    private boolean validateName() {
+        String val = fusername.getText().toString();
+
+        if(val.isEmpty()){
+            fusername.setError("Field cannot be empty");
+            return false;
+        }else{
+            fusername.setError(null);
+            return true;
         }
     }
 
-    public void CreateNewAccount(){
+    private boolean validateEmail() {
+        String val = femail.getText().toString();
+
+        if(val.isEmpty()){
+            femail.setError("Field cannot be empty");
+            return false;
+        }else{
+            femail.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validatePassword() {
+        String val = fpassword.getText().toString();
+        String passwordVal = "^" +
+                //"(?=.*[0-9])" +         //at least 1 digit
+                //"(?=.*[a-z])" +         //at least 1 lower case letter
+                //"(?=.*[A-Z])" +         //at least 1 upper case letter
+                "(?=.*[a-zA-Z])" +      //any letter
+                "(?=.*[@#$%^&+=])" +    //at least 1 special character
+                "(?=\\s+$)" +           //no white spaces
+                ".{4,}" +               //at least 4 characters
+                "$";
+        if(val.isEmpty()){
+            fpassword.setError("Field cannot be empty");
+            return false;
+        }else{
+            fpassword.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validateConfirmPass() {
+        String val = fconfPass.getText().toString();
+
+        if(val.isEmpty()){
+            fconfPass.setError("Field cannot be empty");
+            return false;
+        }else if(!val.equals(fpassword.getText().toString())){
+            fconfPass.setError("Password not match");
+            return false;
+        }else{
+            fconfPass.setError(null);
+            return true;
+        }
+    }
+
+    public void createNewUser(){
+        if (!validateConfirmPass() | !validateEmail() | !validateName() | !validatePassword()){
+            return;
+        }
+
         String username = fusername.getText().toString();
-        String email = femail.getText().toString();
-        String password = fpassword.getText().toString();
+        String email = femail.getText().toString().trim();
+        String password = fpassword.getText().toString().trim();
 
         fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(getActivity(), "User Created", Toast.LENGTH_SHORT).show();
                     Intent home = new Intent(getActivity(), HomeActivity.class);
                     startActivity(home);
                     userID = fAuth.getCurrentUser().getUid();
@@ -126,15 +164,14 @@ public class RegisterFragment extends Fragment {
                     documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Log.d(TAG,"user profile is created for "+userID);
+                            Toast.makeText(getActivity(), "user profile created", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }else {
                     String message = task.getException().getMessage();
-                    Toast.makeText(getActivity(), "Error : "+message, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Error! : "+message, Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
-
 }

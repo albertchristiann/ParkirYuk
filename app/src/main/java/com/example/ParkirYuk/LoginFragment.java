@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import com.example.ParkirYuk.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -41,6 +43,7 @@ public class LoginFragment extends Fragment {
         fLogin = (Button) v.findViewById(R.id.button_login);
         fRegisterBtn = (TextView) v.findViewById(R.id.Register);
         fAuth = FirebaseAuth.getInstance();
+
 
         if (fAuth.getCurrentUser() != null){
             Intent home = new Intent(getActivity(), HomeActivity.class);
@@ -76,7 +79,7 @@ public class LoginFragment extends Fragment {
                                 Intent home = new Intent(getActivity(), HomeActivity.class);
                                 startActivity(home);
                             }else{
-                                Toast.makeText(getActivity(), "Error! " +task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Please input your email/password correctly", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

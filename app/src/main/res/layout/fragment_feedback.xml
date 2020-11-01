@@ -1,15 +1,121 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.ParkirYuk.FeedbackFragment">
+    tools:context="com.example.ParkirYuk.FeedbackFragment"
+    android:background="@color/colorWhite">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Feedback"
-        android:layout_gravity="center"
-        android:textSize="20sp"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="@dimen/logo_widht"
+            android:layout_height="@dimen/logo_height"
+            android:layout_marginTop="20dp"
+            android:src="@mipmap/logo_parkir"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/box"
+            android:layout_width="260dp"
+            android:layout_height="260dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/box"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        <TextView
+            android:id="@+id/emailText"
+            android:layout_width="80dp"
+            android:layout_height="@dimen/layout_text_height"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:text="Email"
+            android:textSize="12sp"
+            android:fontFamily="@font/montserrat_light"
+            android:gravity="center_vertical"
+            app:layout_constraintStart_toStartOf="@+id/box"
+            app:layout_constraintTop_toTopOf="@+id/box" />
+
+        <TextView
+            android:id="@+id/textViewA"
+            android:layout_width="10dp"
+            android:layout_marginTop="15dp"
+            android:text=" : "
+            android:textSize="12sp"
+            android:gravity="center_vertical"
+            android:fontFamily="@font/montserrat_light"
+            android:layout_height="@dimen/layout_text_height"
+            app:layout_constraintStart_toEndOf="@+id/emailText"
+            app:layout_constraintTop_toTopOf="@id/box"/>
+
+        <EditText
+            android:id="@+id/emailEditText"
+            android:layout_width="130dp"
+            android:layout_height="@dimen/layout_text_height"
+            android:layout_marginTop="15dp"
+            android:inputType="text"
+            android:textSize="@dimen/text_size"
+            app:layout_constraintStart_toEndOf="@+id/textViewA"
+            app:layout_constraintTop_toTopOf="@+id/box" />
+
+        <TextView
+            android:id="@+id/FeedbackText"
+            android:layout_width="80dp"
+            android:layout_height="@dimen/layout_text_height"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:textSize="12sp"
+            android:text="Description"
+            android:fontFamily="@font/montserrat_light"
+            android:gravity="center_vertical"
+            app:layout_constraintStart_toStartOf="@+id/box"
+            app:layout_constraintTop_toBottomOf="@id/emailText"/>
+
+        <TextView
+            android:id="@+id/textViewB"
+            android:layout_width="10dp"
+            android:text=" : "
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:fontFamily="@font/montserrat_light"
+            android:layout_height="@dimen/layout_text_height"
+            app:layout_constraintStart_toEndOf="@+id/FeedbackText"
+            app:layout_constraintTop_toBottomOf="@id/textViewA"/>
+
+        <Button
+            android:id="@+id/submitFeedback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/button_shape"
+            android:text="Submit"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/box" />
+
+        <EditText
+            android:id="@+id/editTextFeedback"
+            android:layout_width="220dp"
+            android:layout_height="140dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:ems="10"
+            android:textSize="@dimen/text_size"
+            android:gravity="start|top"
+            android:inputType="textMultiLine|textCapSentences"
+            app:layout_constraintTop_toBottomOf="@id/FeedbackText"
+            app:layout_constraintStart_toStartOf="@id/box"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </FrameLayout>

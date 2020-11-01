@@ -1,45 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view">
+    tools:showIn="navigation_view"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <group android:checkableBehavior="single">
+
         <item
             android:id="@+id/nav_home"
             android:title="Home"
-            android:fontFamily="@font/montserrat"
             android:icon="@drawable/home_icon"/>
+
         <item
             android:id="@+id/nav_login"
             android:title="Login"
-            android:fontFamily="@font/montserrat"
             android:icon="@drawable/login_icon"/>
+
         <item
             android:id="@+id/nav_profile"
             android:title="Profile"
-            android:fontFamily="@font/montserrat"
             android:visible="false"
             android:icon="@drawable/profile_icon"/>
+
         <item
             android:id="@+id/nav_logout"
             android:title="Logout"
-            android:fontFamily="@font/montserrat"
             android:visible="false"
             android:icon="@drawable/logout_icon"/>
-        <item
-            android:id="@+id/nav_history"
-            android:title="History"
-            android:fontFamily="@font/montserrat"
-            android:icon="@drawable/history_icon"/>
+
         <item
             android:id="@+id/nav_about_us"
             android:title="About Us"
-            android:fontFamily="@font/montserrat"
             android:icon="@drawable/about_us_icon"/>
+
         <item
             android:id="@+id/nav_feedback"
             android:title="Feedback"
-            android:fontFamily="@font/montserrat"
             android:icon="@drawable/feedback_icon"/>
     </group>
 </menu>
