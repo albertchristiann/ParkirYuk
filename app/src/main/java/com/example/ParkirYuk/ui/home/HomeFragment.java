@@ -67,7 +67,6 @@ public class HomeFragment extends Fragment {
         //});
 
         textView = v.findViewById(R.id.text_view);
-        button = v.findViewById(R.id.btn_check);
         data();
 
         textView.setOnClickListener(new View.OnClickListener() {
