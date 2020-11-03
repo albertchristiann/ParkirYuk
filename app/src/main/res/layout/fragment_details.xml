@@ -11,49 +11,81 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="@dimen/logo_widht"
+            android:layout_height="@dimen/logo_height"
+            android:layout_marginTop="20dp"
+            android:src="@mipmap/logo_parkir"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/hello_blank_fragment"
-            android:layout_marginTop="50dp"
-            app:layout_constraintTop_toTopOf="parent"/>
+            android:id="@+id/textView"
+            android:layout_width="300dp"
+            android:layout_height="280dp"
+            android:layout_marginStart="56dp"
+            android:layout_marginLeft="56dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="55dp"
+            android:layout_marginRight="55dp"
+            android:background="@drawable/box"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
         <TextView
             android:id="@+id/place"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginLeft="50dp"
+            android:layout_marginTop="25dp"
             android:fontFamily="@font/montserrat_light"
             android:textColor="@color/colorBlack"
             android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView"
+            app:layout_constraintStart_toStartOf="@id/textView"
+            app:layout_constraintEnd_toEndOf="@id/textView"
+            tools:layout_editor_absoluteX="178dp"
             tools:text="place" />
+
+        <TextView
+            android:id="@+id/atau"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="51dp"
+            android:text="/"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@+id/place"
+            app:layout_constraintStart_toStartOf="@id/textView"
+            app:layout_constraintEnd_toEndOf="@id/textView"/>
 
         <TextView
             android:id="@+id/max"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="48dp"
             android:fontFamily="@font/montserrat_light"
             android:textColor="@color/colorBlack"
             android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@id/place"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/atau"
+            app:layout_constraintTop_toBottomOf="@+id/place"
             tools:text="max" />
 
         <TextView
             android:id="@+id/current"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginRight="15dp"
             android:fontFamily="@font/montserrat_light"
             android:textColor="@color/colorBlack"
             android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@id/max"
-            app:layout_constraintTop_toTopOf="parent"
+            android:textFontWeight="@android:integer/status_bar_notification_info_maxnum"
+            app:layout_constraintTop_toBottomOf="@+id/place"
+            app:layout_constraintEnd_toStartOf="@id/atau"
             tools:text="current" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.example.ParkirYuk;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -46,11 +47,25 @@ public class DetailsFragment extends Fragment {
         String msg = getArguments().getString(KEY_FRG);
         String maxNum = getArguments().getString(KEY_FRG1);
         String currNum = getArguments().getString(KEY_FRG2);
+        Integer i = Integer.parseInt(currNum);
         // Get the message from Fragment 1
         if (msg != null && msg != ""){
             place.setText(msg);
             max.setText(maxNum);
-            current.setText(currNum);
+            if(i<10){
+                //i/3 <= i
+                current.setText(currNum);
+                current.setTextColor(getResources().getColor(R.color.merahmuda));
+            }else if(i<30){
+                //(i*2)/3 <= i
+                current.setText(currNum);
+                current.setTextColor(getResources().getColor(R.color.merah));
+            }else if(i<60){
+                //(i*2)/3 <= i
+                current.setText(currNum);
+                current.setTextColor(getResources().getColor(R.color.merahtua));
+            }
+
         } else {
             place.setText("-");
         }

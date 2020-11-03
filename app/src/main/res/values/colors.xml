@@ -8,4 +8,7 @@
     <color name="colorGreen">#32CD32</color>
     <color name="colorOrange">#e58752</color>
     <color name="grey">#b4b6bc</color>
+    <color name="merahtua">#8B0000</color>
+    <color name="merahmuda">#ff1493</color>
+    <color name="merah">#FF0000</color>
 </resources>

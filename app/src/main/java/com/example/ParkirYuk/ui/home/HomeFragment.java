@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -143,12 +144,16 @@ public class HomeFragment extends Fragment {
 
         fStore.collection("places").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                arrayList.clear();
-                for(DocumentSnapshot snapshot : queryDocumentSnapshots){
-                    arrayList.add(snapshot.getString("place"));
-                    note.add(snapshot.getString("max"));
-                    note2.add(snapshot.getString("current"));
+            public void onEvent(QuerySnapshot queryDocumentSnapshots, FirebaseFirestoreException e) {
+                if(e != null){
+                    Log.d(TAG, "onEvent: "+ e.getMessage());
+                }else{
+                    arrayList.clear();
+                    for(DocumentSnapshot snapshot : queryDocumentSnapshots) {
+                        arrayList.add(snapshot.getString("place"));
+                        note.add(snapshot.getString("max"));
+                        note2.add(snapshot.getString("current"));
+                    }
                 }
             }
         });
