@@ -1,13 +1,61 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.ParkirYuk.DetailsFragment">
+    tools:context="com.example.ParkirYuk.DetailsFragment"
+    android:background="@color/colorWhite">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fragmenDetails"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hello_blank_fragment"
+            android:layout_marginTop="50dp"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
+            android:fontFamily="@font/montserrat_light"
+            android:textColor="@color/colorBlack"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="place" />
+
+        <TextView
+            android:id="@+id/max"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/montserrat_light"
+            android:textColor="@color/colorBlack"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@id/place"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="max" />
+
+        <TextView
+            android:id="@+id/current"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/montserrat_light"
+            android:textColor="@color/colorBlack"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@id/max"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="current" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

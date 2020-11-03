@@ -1,6 +1,5 @@
 package com.example.ParkirYuk;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,15 +17,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import javax.annotation.Nullable;
 
 public class userProfileFragment extends Fragment {
     public static final String TAG = "TAG";
-    private TextView username,email;
+    private TextView username,email, place, max, current;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     private String userID;
@@ -37,6 +34,10 @@ public class userProfileFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_user_profile, container, false);
         username = v.findViewById(R.id.getUsername);
         email = v.findViewById(R.id.getEmail);
+//        place = v.findViewById(R.id.getPlace);
+//        max = v.findViewById(R.id.getMax);
+//        current = v.findViewById(R.id.getCurrent);
+
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
@@ -60,6 +61,25 @@ public class userProfileFragment extends Fragment {
                 }
             }
         });
+
+//        DocumentReference docRefPlaces = fStore.collection("places").document(userID);
+//        docRefPlaces.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if(task.isSuccessful()){
+//                    DocumentSnapshot document = task.getResult();
+//                    if(document != null &&  document.exists()){
+//                        place.setText(document.getString("place"));
+//                        max.setText(document.getString("max"));
+//                        current.setText(document.getString("current"));
+//                    }else {
+//                        Log.d(TAG, "No such document");
+//                    }
+//                }else {
+//                    Log.d(TAG, "get failed with ", task.getException());
+//                }
+//            }
+//        });
 
         return v;
     }

@@ -32,7 +32,6 @@ public class LoginFragment extends Fragment {
     TextView fRegisterBtn;
     FirebaseAuth fAuth;
     Boolean isDataValid = false;
-    String userID;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

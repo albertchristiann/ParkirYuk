@@ -21,38 +21,50 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.ParkirYuk.DetailsFragment;
 import com.example.ParkirYuk.HomeActivity;
+import com.example.ParkirYuk.Note;
 import com.example.ParkirYuk.R;
+import com.example.ParkirYuk.RegisterFragment;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+
+import javax.annotation.Nullable;
 
 public class HomeFragment extends Fragment {
     private static final String TAG = "tag";
     private HomeViewModel homeViewModel;
     TextView textView;
-    ArrayList<String> arrayList;
+    ArrayList<String> arrayList = new ArrayList<>();
+    ArrayAdapter<String> adapter;
     Dialog dialog;
     Button button;
+    FirebaseAuth fAuth;
+    FirebaseFirestore fStore;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         //homeViewModel =
         //        ViewModelProviders.of(this).get(HomeViewModel.class);
         View v = inflater.inflate(R.layout.fragment_home, container, false);
-
+        fStore = FirebaseFirestore.getInstance();
+        fAuth = FirebaseAuth.getInstance();
         //final TextView textView = v.findViewById(R.id.text_view);
         //homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
         // @Override
@@ -62,6 +74,7 @@ public class HomeFragment extends Fragment {
         //});
 
         textView = v.findViewById(R.id.text_view);
+        button = v.findViewById(R.id.btn_check);
         data();
 
         textView.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +89,7 @@ public class HomeFragment extends Fragment {
                 EditText editText = dialog.findViewById(R.id.edit_text);
                 ListView listView = dialog.findViewById(R.id.list_view);
 
-                final ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
+                adapter = new ArrayAdapter<>(getActivity(),
                         android.R.layout.simple_list_item_1, arrayList);
 
                 listView.setAdapter(adapter);
@@ -102,16 +115,26 @@ public class HomeFragment extends Fragment {
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                        String placeName = adapter.getItem(i);
+//                        Bundle bundle = new Bundle();
+//                        bundle.putString("PlaceName",placeName);
 
+                        Fragment detailsFragment = new DetailsFragment();
+//                        detailsFragment.setArguments(bundle);
+                        FragmentManager fragmentManager = getParentFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.nav_host_fragment, detailsFragment);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
                         dialog.dismiss();
                     }
 
                 });
 
-                textView.setOnClickListener(new View.OnClickListener() {
+                button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(getContext(), "Ini adalah contoh Toast di Android",Toast.LENGTH_LONG).show();
+
                     }
                 });
 
@@ -123,11 +146,15 @@ public class HomeFragment extends Fragment {
 
     public void data(){
         arrayList = new ArrayList<>();
-        arrayList.add("A");
-        arrayList.add("B");
-        arrayList.add("C");
-        arrayList.add("D");
+
+        fStore.collection("places").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                arrayList.clear();
+                for(DocumentSnapshot snapshot : queryDocumentSnapshots){
+                    arrayList.add(snapshot.getString("place"));
+                }
+            }
+        });
     }
-
-
 }
