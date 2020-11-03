@@ -45,9 +45,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     FirebaseFirestore fStore;
     DrawerLayout drawer;
     NavigationView navigationView;
-    private String adminID;
+    private String adminID, userID;
     private AppBarConfiguration mAppBarConfiguration;
-    private String userID;
     private NavController navController;
     private Menu menu;
 
