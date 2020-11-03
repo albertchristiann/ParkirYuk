@@ -37,22 +37,5 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView3"
             tools:layout_editor_absoluteX="-29dp" />
 
-        <Button
-            android:id="@+id/btn_check"
-            android:text="Check"
-            android:onClick="Check"
-            android:fontFamily="@font/montserrat_light"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="150dp"
-            android:layout_marginLeft="150dp"
-            android:layout_marginTop="75dp"
-            android:layout_marginEnd="150dp"
-            android:layout_marginRight="150dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

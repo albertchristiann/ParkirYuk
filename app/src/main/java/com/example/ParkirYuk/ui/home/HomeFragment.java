@@ -1,14 +1,12 @@
 package com.example.ParkirYuk.ui.home;
 
 import android.app.Dialog;
-import android.content.Context;
-import android.content.Intent;
+import android.content.ContentValues;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,30 +16,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.example.ParkirYuk.DetailsFragment;
-import com.example.ParkirYuk.HomeActivity;
-import com.example.ParkirYuk.Note;
 import com.example.ParkirYuk.R;
-import com.example.ParkirYuk.RegisterFragment;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.protobuf.StringValue;
 
 import java.util.ArrayList;
 
@@ -55,8 +44,12 @@ public class HomeFragment extends Fragment {
     ArrayAdapter<String> adapter;
     Dialog dialog;
     Button button;
-    FirebaseAuth fAuth;
     FirebaseFirestore fStore;
+    public static String KEY_FRG = "msg_fragment";
+    public static String KEY_FRG1 = "msg_fragment1";
+    public static String KEY_FRG2 = "msg_fragment2";
+    public ArrayList<String> note;
+    public ArrayList<String> note2;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -64,7 +57,7 @@ public class HomeFragment extends Fragment {
         //        ViewModelProviders.of(this).get(HomeViewModel.class);
         View v = inflater.inflate(R.layout.fragment_home, container, false);
         fStore = FirebaseFirestore.getInstance();
-        fAuth = FirebaseAuth.getInstance();
+
         //final TextView textView = v.findViewById(R.id.text_view);
         //homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
         // @Override
@@ -115,29 +108,29 @@ public class HomeFragment extends Fragment {
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                        String placeName = adapter.getItem(i);
+                        String placeName = adapter.getItem(i);
+                        String max = note.get(i);
+                        String curr = note2.get(i);
 //                        Bundle bundle = new Bundle();
 //                        bundle.putString("PlaceName",placeName);
 
-                        Fragment detailsFragment = new DetailsFragment();
-//                        detailsFragment.setArguments(bundle);
-                        FragmentManager fragmentManager = getParentFragmentManager();
-                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.nav_host_fragment, detailsFragment);
-                        fragmentTransaction.addToBackStack(null);
-                        fragmentTransaction.commit();
+                        DetailsFragment secondFragtry = new DetailsFragment();
+                        Bundle mBundle = new Bundle();
+                        mBundle.putString(KEY_FRG,placeName);
+                        mBundle.putString(KEY_FRG1, max);
+                        mBundle.putString(KEY_FRG2, curr);
+
+                        secondFragtry.setArguments(mBundle);
+
+                        FragmentManager mFragmentManager = getFragmentManager();
+                        FragmentTransaction mFragmentTransaction = mFragmentManager
+                                .beginTransaction()
+                                .replace(R.id.nav_host_fragment, secondFragtry, DetailsFragment.class.getSimpleName());
+                        mFragmentTransaction.addToBackStack(null).commit();
+
                         dialog.dismiss();
                     }
-
                 });
-
-                button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                    }
-                });
-
             }
         });
 
@@ -146,6 +139,8 @@ public class HomeFragment extends Fragment {
 
     public void data(){
         arrayList = new ArrayList<>();
+        note = new ArrayList<>();
+        note2 = new ArrayList<>();
 
         fStore.collection("places").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -153,6 +148,8 @@ public class HomeFragment extends Fragment {
                 arrayList.clear();
                 for(DocumentSnapshot snapshot : queryDocumentSnapshots){
                     arrayList.add(snapshot.getString("place"));
+                    note.add(snapshot.getString("max"));
+                    note2.add(snapshot.getString("current"));
                 }
             }
         });

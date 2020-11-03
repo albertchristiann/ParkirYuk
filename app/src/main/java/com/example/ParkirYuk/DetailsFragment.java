@@ -28,8 +28,9 @@ public class DetailsFragment extends Fragment {
     private static final String TAG = "tag";
     private TextView place, max, current;
     FirebaseFirestore fStore;
-    FirebaseAuth fAuth;
-    private String userID;
+    public static String KEY_FRG = "msg_fragment";
+    public static String KEY_FRG1 = "msg_fragment1";
+    public static String KEY_FRG2 = "msg_fragment2";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,21 +40,20 @@ public class DetailsFragment extends Fragment {
         place = v.findViewById(R.id.place);
         max = v.findViewById(R.id.max);
         current = v.findViewById(R.id.current);
+
         fStore = FirebaseFirestore.getInstance();
 
-//        Bundle bundle = getArguments();
-//        String placeName = bundle.getString("PlaceName");
-
-        fStore.collection("places").get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        for(DocumentSnapshot snapshot : queryDocumentSnapshots){
-                            place.setText(snapshot.getString("place"));
-//                            max.setText(snapshot.getString("max"));
-                        }
-                    }
-                });
+        String msg = getArguments().getString(KEY_FRG);
+        String maxNum = getArguments().getString(KEY_FRG1);
+        String currNum = getArguments().getString(KEY_FRG2);
+        // Get the message from Fragment 1
+        if (msg != null && msg != ""){
+            place.setText(msg);
+            max.setText(maxNum);
+            current.setText(currNum);
+        } else {
+            place.setText("-");
+        }
 
         return v;
     }
