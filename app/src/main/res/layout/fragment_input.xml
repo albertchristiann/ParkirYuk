@@ -1,0 +1,120 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.ParkirYuk.InputFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/input"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="@dimen/logo_widht"
+            android:layout_height="@dimen/logo_height"
+            android:layout_marginTop="20dp"
+            android:src="@mipmap/logo_parkir"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="260dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/box"
+            android:fontFamily="@font/montserrat_light"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+        <Button
+            android:id="@+id/button_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button_shape"
+            android:text="Enter"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/montserrat_light"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+
+        <TextView
+            android:id="@+id/textTambah"
+            android:layout_width="@dimen/layout_text_width"
+            android:layout_height="@dimen/layout_text_height"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/montserrat_light"
+            android:gravity="center_vertical"
+            android:text="Tambah"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/textView3"
+            app:layout_constraintTop_toTopOf="@+id/textView3" />
+
+        <TextView
+            android:id="@+id/textViewa"
+            android:layout_width="10dp"
+            android:layout_height="@dimen/layout_text_height"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/montserrat_light"
+            android:gravity="center"
+            android:text=" : "
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/textTambah"
+            app:layout_constraintTop_toTopOf="@+id/textView3" />
+
+        <EditText
+            android:id="@+id/tambah"
+            android:layout_width="@dimen/layout_edit_text_width"
+            android:layout_height="@dimen/layout_text_height"
+            android:layout_marginTop="15dp"
+            android:inputType="number"
+            android:textSize="@dimen/text_size"
+            app:layout_constraintStart_toEndOf="@+id/textViewa"
+            app:layout_constraintTop_toTopOf="@+id/textView3" />
+
+        <TextView
+            android:id="@+id/textKurang"
+            android:layout_width="@dimen/layout_text_width"
+            android:layout_height="@dimen/layout_text_height"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:fontFamily="@font/montserrat_light"
+            android:gravity="center_vertical"
+            android:text="Kurang"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/textView3"
+            app:layout_constraintTop_toBottomOf="@+id/textTambah" />
+
+        <TextView
+            android:id="@+id/textViewb"
+            android:layout_width="10dp"
+            android:layout_height="@dimen/layout_text_height"
+            android:fontFamily="@font/montserrat_light"
+            android:gravity="center"
+            android:text=" : "
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/textKurang"
+            app:layout_constraintTop_toBottomOf="@+id/textTambah" />
+
+        <EditText
+            android:id="@+id/kurang"
+            android:layout_width="@dimen/layout_edit_text_width"
+            android:layout_height="@dimen/layout_text_height"
+            android:textSize="@dimen/text_size"
+            android:inputType="number"
+            app:layout_constraintStart_toEndOf="@+id/textViewb"
+            app:layout_constraintTop_toBottomOf="@+id/tambah" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

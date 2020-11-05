@@ -5,11 +5,15 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ParkirYuk.R;
@@ -28,6 +32,7 @@ import javax.annotation.Nullable;
 public class DetailsFragment extends Fragment {
     private static final String TAG = "tag";
     private TextView place, max, current;
+
     FirebaseFirestore fStore;
     public static String KEY_FRG = "msg_fragment";
     public static String KEY_FRG1 = "msg_fragment1";
@@ -41,6 +46,7 @@ public class DetailsFragment extends Fragment {
         place = v.findViewById(R.id.place);
         max = v.findViewById(R.id.max);
         current = v.findViewById(R.id.current);
+        ImageButton imageButton = v.findViewById(R.id.refresh);
 
         fStore = FirebaseFirestore.getInstance();
 
@@ -48,20 +54,23 @@ public class DetailsFragment extends Fragment {
         String maxNum = getArguments().getString(KEY_FRG1);
         String currNum = getArguments().getString(KEY_FRG2);
         Integer i = Integer.parseInt(currNum);
+        Integer m = Integer.parseInt(maxNum);
         // Get the message from Fragment 1
-        if (msg != null && msg != ""){
+
+        if (msg != null && msg != ""){ // i = mobil yang msk, m = kapasitas max
             place.setText(msg);
             max.setText(maxNum);
-            if(i<10){
-                //i/3 <= i
+            Integer pink = m/3;
+            Integer merah = (m*2)/3;
+            Integer merahtua = (m*2)/3;
+            if(i <= pink){
                 current.setText(currNum);
                 current.setTextColor(getResources().getColor(R.color.merahmuda));
-            }else if(i<30){
+            }else if(i <= merah){
                 //(i*2)/3 <= i
                 current.setText(currNum);
                 current.setTextColor(getResources().getColor(R.color.merah));
-            }else if(i<60){
-                //(i*2)/3 <= i
+            }else{
                 current.setText(currNum);
                 current.setTextColor(getResources().getColor(R.color.merahtua));
             }
@@ -69,6 +78,14 @@ public class DetailsFragment extends Fragment {
         } else {
             place.setText("-");
         }
+
+        imageButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                //code refresh ke fragment
+            }
+        });
 
         return v;
     }
