@@ -77,7 +77,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         // pake mappBarconfiguration
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_login, R.id.nav_profile,R.id.nav_logout, R.id.nav_about_us,R.id.nav_feedback)
+                R.id.nav_home, R.id.nav_login, R.id.nav_profile,R.id.nav_logout, R.id.nav_about_us,R.id.nav_feedback,R.id.nav_input)
                 .setDrawerLayout(drawer)
                 .build();
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -159,7 +159,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     public void userAdmin(){
         adminID = fAuth.getCurrentUser().getUid();
         if(adminID.equals("zpw7JrZMWrNZeGyJElriCPHnqDS2")){
-            menu.findItem(R.id.nav_login).setVisible(true);
+            menu.findItem(R.id.nav_input).setVisible(true);
         }
     }
 
@@ -187,6 +187,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_feedback:
                 navController.navigate(R.id.nav_feedback);
+                break;
+            case R.id.nav_input:
+                navController.navigate(R.id.nav_input);
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

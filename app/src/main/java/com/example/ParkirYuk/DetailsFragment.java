@@ -1,5 +1,6 @@
 package com.example.ParkirYuk;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -80,10 +81,15 @@ public class DetailsFragment extends Fragment {
         }
 
         imageButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
-            public void onClick(View view) {
-                //code refresh ke fragment
+            public void onClick(View v) {
+                Fragment currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+                if (currentFragment instanceof DetailsFragment){
+                    FragmentTransaction fragTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
+                    fragTransaction.detach(currentFragment);
+                    fragTransaction.attach(currentFragment);
+                    fragTransaction.commit();
+                }
             }
         });
 

@@ -22,6 +22,7 @@
         android:name="com.example.ParkirYuk.AboutUsFragment"
         android:label="About Us"
         tools:layout="@layout/fragment_about_us" />
+
     <fragment
         android:id="@+id/nav_profile"
         android:name="com.example.ParkirYuk.userProfileFragment"
@@ -33,5 +34,11 @@
         android:name="com.example.ParkirYuk.FeedbackFragment"
         android:label="Feedback"
         tools:layout="@layout/fragment_feedback" />
+
+    <fragment
+        android:id="@+id/nav_input"
+        android:name="com.example.ParkirYuk.InputFragment"
+        android:label="fragment_input"
+        tools:layout="@layout/fragment_input" />
 
 </navigation>

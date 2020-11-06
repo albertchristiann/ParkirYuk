@@ -67,7 +67,7 @@ public class HomeFragment extends Fragment {
         //}
         //});
 
-        textView = v.findViewById(R.id.text_view);
+        textView = v.findViewById(R.id.search);
         data();
 
         textView.setOnClickListener(new View.OnClickListener() {
