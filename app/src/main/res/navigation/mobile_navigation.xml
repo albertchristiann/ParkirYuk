@@ -38,7 +38,7 @@
     <fragment
         android:id="@+id/nav_input"
         android:name="com.example.ParkirYuk.InputFragment"
-        android:label="fragment_input"
+        android:label="Input Place"
         tools:layout="@layout/fragment_input" />
 
 </navigation>

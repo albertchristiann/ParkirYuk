@@ -89,16 +89,6 @@
             app:layout_constraintEnd_toStartOf="@id/atau"
             tools:text="current" />
 
-        //  button
-        //            android:layout_width="40dp"
-        //  android:layout_height="wrap_content"
-        //  android:layout_marginTop="80dp"
-        //  android:gravity="center"
-        //  android:background="@drawable/ic_refresh"
-        //  app:layout_constraintEnd_toEndOf="@+id/textView"
-        //  app:layout_constraintStart_toStartOf="@+id/textView"
-        //  app:layout_constraintTop_toBottomOf="@+id/atau" />
-
             <ImageButton
                 android:id="@+id/refresh"
                 android:layout_width="50dp"
