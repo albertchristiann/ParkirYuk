@@ -51,34 +51,34 @@ public class DetailsFragment extends Fragment {
 
         fStore = FirebaseFirestore.getInstance();
 
-        String msg = getArguments().getString(KEY_FRG);
-        String maxNum = getArguments().getString(KEY_FRG1);
-        String currNum = getArguments().getString(KEY_FRG2);
-        Integer i = Integer.parseInt(currNum);
-        Integer m = Integer.parseInt(maxNum);
-        // Get the message from Fragment 1
-
-        if (msg != null && msg != ""){ // i = mobil yang msk, m = kapasitas max
-            place.setText(msg);
-            max.setText(maxNum);
-            Integer pink = m/3;
-            Integer merah = (m*2)/3;
-            Integer merahtua = (m*2)/3;
-            if(i <= pink){
-                current.setText(currNum);
-                current.setTextColor(getResources().getColor(R.color.merahmuda));
-            }else if(i <= merah){
-                //(i*2)/3 <= i
-                current.setText(currNum);
-                current.setTextColor(getResources().getColor(R.color.merah));
-            }else{
-                current.setText(currNum);
-                current.setTextColor(getResources().getColor(R.color.merahtua));
-            }
-
-        } else {
-            place.setText("-");
-        }
+//        String msg = getArguments().getString(KEY_FRG);
+//        String maxNum = getArguments().getString(KEY_FRG1);
+//        String currNum = getArguments().getString(KEY_FRG2);
+//        Integer i = Integer.parseInt(currNum);
+//        Integer m = Integer.parseInt(maxNum);
+//        // Get the message from Fragment 1
+//
+//        if (msg != null && msg != ""){ // i = mobil yang msk, m = kapasitas max
+//            place.setText(msg);
+//            max.setText(maxNum);
+//            Integer pink = m/3;
+//            Integer merah = (m*2)/3;
+//            Integer merahtua = (m*2)/3;
+//            if(i <= pink){
+//                current.setText(currNum);
+//                current.setTextColor(getResources().getColor(R.color.merahmuda));
+//            }else if(i <= merah){
+//                //(i*2)/3 <= i
+//                current.setText(currNum);
+//                current.setTextColor(getResources().getColor(R.color.merah));
+//            }else{
+//                current.setText(currNum);
+//                current.setTextColor(getResources().getColor(R.color.merahtua));
+//            }
+//
+//        } else {
+//            place.setText("-");
+//        }
 
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override

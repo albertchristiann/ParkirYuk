@@ -1,8 +1,5 @@
 package com.example.ParkirYuk;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,25 +9,16 @@ import android.view.Menu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.ParkirYuk.ui.home.HomeFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.view.GravityCompat;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -39,42 +27,36 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import java.util.ArrayList;
+
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     public static final String TAG = "TAG";
+
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     DrawerLayout drawer;
     NavigationView navigationView;
+
     private String adminID, userID;
     private AppBarConfiguration mAppBarConfiguration;
     private NavController navController;
     private Menu menu;
 
+    private ArrayList<String> mData = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-//        FloatingActionButton fab = findViewById(R.id.fab);
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
-        //mail logo
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+
 
         drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         Toolbar toolbar = findViewById(R.id.toolbar);
         menu = navigationView.getMenu();
         setSupportActionBar(toolbar);
-
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        // pake mappBarconfiguration
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_login, R.id.nav_profile,R.id.nav_logout, R.id.nav_about_us,R.id.nav_feedback,R.id.nav_input)
@@ -85,16 +67,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_home);
 
-        //pake toggle
-//        navigationView.bringToFront();
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
-//                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-//        drawer.addDrawerListener(toggle);
-//        toggle.syncState();
-//        navigationView.setNavigationItemSelectedListener(this);
-//        navigationView.setCheckedItem(R.id.nav_home);
-
-
 //      update navigation header
         updateNavHeader();
 
@@ -104,6 +76,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             menu.findItem(R.id.nav_login).setVisible(false);
             userAdmin();
         }
+
+        //
+
     }
 
     @Override
@@ -195,4 +170,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }
