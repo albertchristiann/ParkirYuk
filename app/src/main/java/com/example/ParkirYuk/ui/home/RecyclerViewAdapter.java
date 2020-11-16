@@ -41,8 +41,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.itemView.setTag(exampleList.get(position));
+//        holder.itemView.setTag(exampleList.get(position));
         holder.places.setText(exampleList.get(position).getPlaces());
+        Log.d(TAG, "onBindViewHolder: "+ exampleList.get(position).getPlaces());
         Log.d(TAG, "onBindViewHolder: data Added");
 //        holder.cardView.setOnClickListener(new View.OnClickListener() {
 //            @Override

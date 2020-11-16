@@ -1,6 +1,7 @@
 package com.example.ParkirYuk.ui.home;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeViewModel extends ViewModel {
-
+    private static final String TAG = "HomeViewModel";
     private MutableLiveData<ArrayList<HomeModel>> liveData;
     private Repository dataRepo;
 

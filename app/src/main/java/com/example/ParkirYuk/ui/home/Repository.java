@@ -8,8 +8,11 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.ParkirYuk.model.HomeModel;
 import com.example.ParkirYuk.model.PlacesData;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -37,28 +40,54 @@ public class Repository {
 
         MutableLiveData<ArrayList<HomeModel>> data = new MutableLiveData<>();
         data.setValue(dataSet);
-        Log.d(TAG, "getData: added to view");
+        Log.d(TAG, "getData: added to view"+dataSet);
         return data;
     }
 
     private void loadData() {
-        db.collection("places").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        DocumentReference docRef = db.collection("places").document("place");
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if(!queryDocumentSnapshots.isEmpty()){
-                    List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
-                    for(DocumentSnapshot documentSnapshot : list){
-                        dataSet.add(documentSnapshot.toObject(HomeModel.class));
-                    }
-                    Log.v(TAG, "onSuccess: added database");
-//                    onDataAdded.added();
-                }
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Log.d(TAG,"MASUKKK");
+
+                HomeModel challenge = documentSnapshot.toObject(HomeModel.class);
+                Log.d(TAG,"MASUKK:"+challenge.getPlaces());
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.e(TAG, "onFailure: ", e);
-            }
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if(task.isSuccessful()){
+//                    DocumentSnapshot document = task.getResult();
+//                    HomeModel challenge = new HomeModel();
+//                    challenge.setPlaces(document.getString("place"));
+//                    Log.d(TAG,"DOC:"+document.getString("place"));
+//                }
+//            }
         });
+
+//        docRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//            @Override
+//            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//
+//                if(!queryDocumentSnapshots.isEmpty()){
+//                    List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+//                    for(DocumentSnapshot documentSnapshot : list){
+//                        HomeModel h = documentSnapshot.toObject(HomeModel.class);
+//                        Log.d(TAG, "onSuccess: "+h);
+////                        dataSet.add(documentSnapshot.toObject(HomeModel.class));
+////                        Log.d(TAG, "onSuccess: "+documentSnapshot.toObject(HomeModel.class).getPlaces());
+////                        Log.d(TAG, "onSuccess: "+documentSnapshot.getId());
+////                        Log.d(TAG, "onSuccess: "+documentSnapshot.);
+//                    }
+////                    onDataAdded.added();
+//                }
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Log.e(TAG, "onFailure: ", e);
+//            }
+//        });
+
     }
 }

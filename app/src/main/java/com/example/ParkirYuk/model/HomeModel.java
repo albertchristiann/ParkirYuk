@@ -1,20 +1,20 @@
 package com.example.ParkirYuk.model;
 
 public class HomeModel {
-    private String places;
+    private String place;
 
     public HomeModel(String places){
-        this.places = places;
+        this.place = places;
     }
 
     public HomeModel(){
     }
 
     public void setPlaces(String places) {
-        this.places = places;
+        this.place = places;
     }
 
     public String getPlaces() {
-        return places;
+        return place;
     }
 }

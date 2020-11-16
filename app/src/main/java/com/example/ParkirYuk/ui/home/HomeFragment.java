@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,17 +57,20 @@ public class HomeFragment extends Fragment{
                 homeViewModel = ViewModelProviders.of(getActivity()).get(HomeViewModel.class);
                 homeViewModel.init();
 
+                Log.d(TAG, "onClick: "+homeViewModel.getData().getValue());
                 //init recycler view
                 adapter = new RecyclerViewAdapter(homeViewModel.getData().getValue());
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity().getBaseContext());
                 recyclerView.setLayoutManager(layoutManager);
+
+                recyclerView.setAdapter(adapter);
+
                 homeViewModel.getData().observe(getViewLifecycleOwner(), new Observer<ArrayList<HomeModel>>() {
                     @Override
                     public void onChanged(ArrayList<HomeModel> homeModels) {
                         adapter.notifyDataSetChanged();
                     }
                 });
-                recyclerView.setAdapter(adapter);
 
                 editText.addTextChangedListener(new TextWatcher() {
                     @Override
