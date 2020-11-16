@@ -1,4 +1,4 @@
-package com.example.ParkirYuk;
+package com.example.ParkirYuk.ui.home;
 
 import android.content.Context;
 
@@ -6,14 +6,15 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.ParkirYuk.PlacesData;
-import com.example.ParkirYuk.Repository;
+import com.example.ParkirYuk.model.HomeModel;
+import com.example.ParkirYuk.model.PlacesData;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HomeViewModel extends ViewModel {
 
-    private MutableLiveData<ArrayList<PlacesData>> liveData;
+    private MutableLiveData<ArrayList<HomeModel>> liveData;
     private Repository dataRepo;
 
     public void init(){
@@ -24,7 +25,7 @@ public class HomeViewModel extends ViewModel {
         liveData = dataRepo.getData();
     }
 
-    public LiveData<ArrayList<PlacesData>> getData(){
+    public LiveData<ArrayList<HomeModel>> getData(){
         return liveData;
     }
 }

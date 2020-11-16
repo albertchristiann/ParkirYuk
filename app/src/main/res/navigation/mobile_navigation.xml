@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.ParkirYuk.HomeFragment"
+        android:name="com.example.ParkirYuk.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
@@ -37,7 +37,7 @@
 
     <fragment
         android:id="@+id/nav_input"
-        android:name="com.example.ParkirYuk.InputFragment"
+        android:name="com.example.ParkirYuk.AdminUser.InputFragment"
         android:label="Input Place"
         tools:layout="@layout/fragment_input" />
 

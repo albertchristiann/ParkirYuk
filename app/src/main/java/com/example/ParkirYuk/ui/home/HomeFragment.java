@@ -1,6 +1,7 @@
-package com.example.ParkirYuk;
+package com.example.ParkirYuk.ui.home;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -19,27 +20,25 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.example.ParkirYuk.model.HomeModel;
+import com.example.ParkirYuk.model.PlacesData;
+import com.example.ParkirYuk.R;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragment extends Fragment{
     private static final String TAG = "tag";
     private HomeViewModel homeViewModel;
+    private RecyclerViewAdapter adapter;
     TextView searchView;
     Dialog dialog;
-    private RecyclerViewAdapter adapter;
+    private OnDataAdded onDataAdded;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
         searchView = v.findViewById(R.id.search);
-
-        //init view model
-        homeViewModel = ViewModelProviders.of(requireActivity()).get(HomeViewModel.class);
-        homeViewModel.init();
 
         searchView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,19 +48,22 @@ public class HomeFragment extends Fragment{
                 dialog.getWindow().setLayout(1000,1500);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
+                //init view model
+                homeViewModel = ViewModelProviders.of(requireActivity()).get(HomeViewModel.class);
+                homeViewModel.init();
 
                 EditText editText = dialog.findViewById(R.id.edit_text);
                 //init recycler view
-                RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
+                RecyclerView recyclerView = dialog.findViewById(R.id.recycler_view);
                 final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
                 recyclerView.setLayoutManager(layoutManager);
 
                 adapter = new RecyclerViewAdapter(homeViewModel.getData().getValue());
                 recyclerView.setAdapter(adapter);
 
-                homeViewModel.getData().observe(getViewLifecycleOwner(), new Observer<ArrayList<PlacesData>>() {
+                homeViewModel.getData().observe(getViewLifecycleOwner(), new Observer<List<HomeModel>>() {
                     @Override
-                    public void onChanged(ArrayList<PlacesData> placesData) {
+                    public void onChanged(List<HomeModel> placesData) {
                         adapter.notifyDataSetChanged();
                     }
                 });
@@ -82,7 +84,6 @@ public class HomeFragment extends Fragment{
 
                     }
                 });
-
 
 //                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //                    @Override
@@ -113,26 +114,13 @@ public class HomeFragment extends Fragment{
         return v;
     }
 
-//    public void data(){
-//        arrayList = new ArrayList<PlacesData>();
-//        note = new ArrayList<>();
-//        note2 = new ArrayList<>();
-//
-//        fStore.collection("places").addSnapshotListener(new EventListener<QuerySnapshot>() {
+//    @Override
+//    public void added() {
+//        homeViewModel.getData().observe(getViewLifecycleOwner(), new Observer<List<PlacesData>>() {
 //            @Override
-//            public void onEvent(QuerySnapshot queryDocumentSnapshots, FirebaseFirestoreException e) {
-//                if(e != null){
-//                    Log.d(TAG, "onEvent: "+ e.getMessage());
-//                }else{
-//                    arrayList.clear();
-//                    for(DocumentSnapshot snapshot : queryDocumentSnapshots) {
-//                        arrayList.add(snapshot.getString("place"));
-//                        note.add(snapshot.getString("max"));
-//                        note2.add(snapshot.getString("current"));
-//                    }
-//                }
+//            public void onChanged(List<PlacesData> placesData) {
+//                adapter.notifyDataSetChanged();
 //            }
 //        });
 //    }
-
 }

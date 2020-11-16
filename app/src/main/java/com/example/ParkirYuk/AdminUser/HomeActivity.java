@@ -1,4 +1,4 @@
-package com.example.ParkirYuk;
+package com.example.ParkirYuk.AdminUser;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ParkirYuk.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
@@ -27,9 +28,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import java.util.ArrayList;
-
-public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     public static final String TAG = "TAG";
 
     FirebaseAuth fAuth;
@@ -41,8 +40,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private AppBarConfiguration mAppBarConfiguration;
     private NavController navController;
     private Menu menu;
-
-    private ArrayList<String> mData = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,9 +73,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             menu.findItem(R.id.nav_login).setVisible(false);
             userAdmin();
         }
-
-        //
-
     }
 
     @Override
@@ -138,6 +132,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -170,6 +165,4 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-
 }
