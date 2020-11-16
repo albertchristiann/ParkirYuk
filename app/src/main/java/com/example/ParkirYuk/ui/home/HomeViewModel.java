@@ -25,7 +25,7 @@ public class HomeViewModel extends ViewModel {
         liveData = dataRepo.getData();
     }
 
-    public LiveData<ArrayList<HomeModel>> getData(){
+    public MutableLiveData<ArrayList<HomeModel>> getData(){
         return liveData;
     }
 }

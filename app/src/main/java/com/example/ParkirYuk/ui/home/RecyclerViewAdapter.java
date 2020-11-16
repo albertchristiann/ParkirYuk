@@ -19,10 +19,10 @@ import com.example.ParkirYuk.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> implements Filterable{
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "tag";
     private ArrayList<HomeModel> exampleList = new ArrayList<>();
-    private ArrayList<HomeModel> exampleListFull;
+    private ArrayList<HomeModel> exampleListFull = new ArrayList<>();
     private String placeName;
     private Context context;
 
@@ -57,38 +57,38 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return exampleList.size();
     }
 
-    public Filter exampleFilter = new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
-            ArrayList<HomeModel> filteredList = new ArrayList<>();
-            if(constraint == null || constraint.length() == 0){
-                filteredList.addAll(exampleListFull);
-            }else{
-                String filterPattern = constraint.toString().toLowerCase().trim();
-                for(HomeModel item : exampleListFull){
-                    if(item.getPlaces().toLowerCase().contains(filterPattern)){
-                        filteredList.add(item);
-                    }
-                }
-            }
-
-            FilterResults results = new FilterResults();
-            results.values = filteredList;
-
-            return results;
-        }
-
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            exampleList.clear();
-            exampleList.addAll((ArrayList)results.values);
-        }
-    };
-
-    @Override
-    public Filter getFilter() {
-        return exampleFilter;
-    }
+//    public Filter exampleFilter = new Filter() {
+//        @Override
+//        protected FilterResults performFiltering(CharSequence constraint) {
+//            ArrayList<HomeModel> filteredList = new ArrayList<>();
+//            if(constraint == null || constraint.length() == 0){
+//                filteredList.addAll(exampleListFull);
+//            }else{
+//                String filterPattern = constraint.toString().toLowerCase().trim();
+//                for(HomeModel item : exampleListFull){
+//                    if(item.getPlaces().toLowerCase().contains(filterPattern)){
+//                        filteredList.add(item);
+//                    }
+//                }
+//            }
+//
+//            FilterResults results = new FilterResults();
+//            results.values = filteredList;
+//
+//            return results;
+//        }
+//
+//        @Override
+//        protected void publishResults(CharSequence constraint, FilterResults results) {
+//            exampleList.clear();
+//            exampleList.addAll((ArrayList)results.values);
+//        }
+//    };
+//
+//    @Override
+//    public Filter getFilter() {
+//        return exampleFilter;
+//    }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         private TextView places;

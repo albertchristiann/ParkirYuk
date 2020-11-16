@@ -15,15 +15,18 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.ParkirYuk.AdminUser.HomeActivity;
 import com.example.ParkirYuk.model.HomeModel;
 import com.example.ParkirYuk.model.PlacesData;
 import com.example.ParkirYuk.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment{
@@ -33,7 +36,6 @@ public class HomeFragment extends Fragment{
     TextView searchView;
     Dialog dialog;
     private OnDataAdded onDataAdded;
-
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -48,25 +50,23 @@ public class HomeFragment extends Fragment{
                 dialog.getWindow().setLayout(1000,1500);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
+                EditText editText = dialog.findViewById(R.id.edit_text);
+                RecyclerView recyclerView = dialog.findViewById(R.id.recycler_view);
                 //init view model
-                homeViewModel = ViewModelProviders.of(requireActivity()).get(HomeViewModel.class);
+                homeViewModel = ViewModelProviders.of(getActivity()).get(HomeViewModel.class);
                 homeViewModel.init();
 
-                EditText editText = dialog.findViewById(R.id.edit_text);
                 //init recycler view
-                RecyclerView recyclerView = dialog.findViewById(R.id.recycler_view);
-                final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-                recyclerView.setLayoutManager(layoutManager);
-
                 adapter = new RecyclerViewAdapter(homeViewModel.getData().getValue());
-                recyclerView.setAdapter(adapter);
-
-                homeViewModel.getData().observe(getViewLifecycleOwner(), new Observer<List<HomeModel>>() {
+                LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity().getBaseContext());
+                recyclerView.setLayoutManager(layoutManager);
+                homeViewModel.getData().observe(getViewLifecycleOwner(), new Observer<ArrayList<HomeModel>>() {
                     @Override
-                    public void onChanged(List<HomeModel> placesData) {
+                    public void onChanged(ArrayList<HomeModel> homeModels) {
                         adapter.notifyDataSetChanged();
                     }
                 });
+                recyclerView.setAdapter(adapter);
 
                 editText.addTextChangedListener(new TextWatcher() {
                     @Override
@@ -76,7 +76,7 @@ public class HomeFragment extends Fragment{
 
                     @Override
                     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                        adapter.getFilter().filter(charSequence);
+//                        adapter.getFilter().filter(charSequence);
                     }
 
                     @Override

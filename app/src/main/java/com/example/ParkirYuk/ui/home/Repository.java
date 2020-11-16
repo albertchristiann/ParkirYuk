@@ -37,6 +37,7 @@ public class Repository {
 
         MutableLiveData<ArrayList<HomeModel>> data = new MutableLiveData<>();
         data.setValue(dataSet);
+        Log.d(TAG, "getData: added to view");
         return data;
     }
 
