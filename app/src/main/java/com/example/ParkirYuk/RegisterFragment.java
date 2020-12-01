@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.ParkirYuk.R;
+import com.example.ParkirYuk.AdminUser.HomeActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -28,6 +27,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class RegisterFragment extends Fragment {
     public static final String TAG = "TAG";
@@ -173,5 +173,13 @@ public class RegisterFragment extends Fragment {
                 }
             }
         });
+        String historyID = UUID.randomUUID().toString();
+        String place = null;
+        String time = null;
+        Map<String, Object> history = new HashMap<>();
+        history.put("id", historyID);
+        history.put("place", place);
+        history.put("time", time);
+        fStore.collection("users").document(userID).collection("history").document(historyID).set(history);
     }
 }
