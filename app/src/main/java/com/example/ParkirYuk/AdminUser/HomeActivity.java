@@ -1,5 +1,6 @@
 package com.example.ParkirYuk.AdminUser;
 
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ParkirYuk.R;
+import com.example.ParkirYuk.ui.home.HomeViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
@@ -20,6 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -30,7 +33,7 @@ import androidx.appcompat.widget.Toolbar;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     public static final String TAG = "TAG";
-
+    private HomeViewModel homeViewModel;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     DrawerLayout drawer;
@@ -47,6 +50,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_home);
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
+
+        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
+        homeViewModel.init();
 
 
         drawer = findViewById(R.id.drawer_layout);
@@ -146,8 +152,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_logout:
                 Toast.makeText(HomeActivity.this, "Log Out", Toast.LENGTH_SHORT).show();
                 fAuth.signOut();
-                Intent home = new Intent(getApplicationContext(), HomeActivity.class);
-                startActivity(home);
+                finish();
+                startActivity(getIntent());
                 break;
             case R.id.nav_profile:
                 navController.navigate(R.id.nav_profile);

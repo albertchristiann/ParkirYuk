@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.ParkirYuk.userProfileFragment"
+    tools:context="com.example.ParkirYuk.profie.userProfileFragment"
     android:background="@color/colorWhite">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -59,69 +59,15 @@
             app:layout_constraintStart_toStartOf="@id/TextviewBox"
             app:layout_constraintEnd_toEndOf="@id/TextviewBox"/>
 
-        <TextView
-            android:id="@+id/namePlaceHistory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="mall taman anggrek"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:textSize="12sp"
-            android:textColor="@color/colorBlack"
+        <ListView
+            android:id="@+id/listView1"
+            android:layout_width="240dp"
+            android:layout_height="190dp"
             app:layout_constraintTop_toBottomOf="@id/head"
-            app:layout_constraintStart_toStartOf="@id/countHistory"/>
-
-        <TextView
-            android:id="@+id/countHistory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp"
-            android:textSize="12sp"
-            android:textColor="@color/colorBlack"
-            app:layout_constraintTop_toBottomOf="@id/head"
-            app:layout_constraintStart_toStartOf="@id/TextviewBox"/>
-
-        <TextView
-            android:id="@+id/orHistory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="/"
-            android:textSize="12sp"
-            app:layout_constraintTop_toBottomOf="@id/head"
-            app:layout_constraintStart_toEndOf="@id/namePlaceHistory"
-            app:layout_constraintEnd_toEndOf="@id/TextviewBox"/>
-
-        <TextView
-            android:id="@+id/maxHistory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/montserrat_light"
-            android:textColor="@color/colorBlack"
-            android:textSize="12sp"
-            android:text="50"
-            app:layout_constraintTop_toBottomOf="@id/head"
-            app:layout_constraintStart_toEndOf="@id/orHistory"/>
-
-        <TextView
-            android:id="@+id/currHistory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="5dp"
-            android:fontFamily="@font/montserrat_light"
-            android:textColor="@color/colorBlack"
-            android:textSize="12sp"
-            app:layout_constraintTop_toBottomOf="@id/head"
-            android:text="20"
-            app:layout_constraintEnd_toStartOf="@id/orHistory"/>
+            app:layout_constraintStart_toStartOf="@id/TextviewBox"
+            app:layout_constraintEnd_toEndOf="@id/TextviewBox"
+            android:layout_marginTop="2dp">
+        </ListView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

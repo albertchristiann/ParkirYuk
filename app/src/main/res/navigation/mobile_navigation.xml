@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/nav_profile"
-        android:name="com.example.ParkirYuk.userProfileFragment"
+        android:name="com.example.ParkirYuk.profie.userProfileFragment"
         android:label="User Profile"
         tools:layout="@layout/fragment_user_profile" />
 

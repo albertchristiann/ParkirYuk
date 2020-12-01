@@ -2,6 +2,7 @@ package com.example.ParkirYuk.ui.home;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -16,32 +17,36 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ParkirYuk.AdminUser.HomeActivity;
-import com.example.ParkirYuk.model.HomeModel;
-import com.example.ParkirYuk.model.PlacesData;
 import com.example.ParkirYuk.R;
+import com.example.ParkirYuk.model.PlacesData;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class HomeFragment extends Fragment{
+public class HomeFragment extends Fragment {
     private static final String TAG = "tag";
     private HomeViewModel homeViewModel;
     private RecyclerViewAdapter adapter;
+    private RecyclerViewAdapter.ViewHolder holder;
+
     TextView searchView;
     Dialog dialog;
+    Integer count = 0;
     private OnDataAdded onDataAdded;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
         searchView = v.findViewById(R.id.search);
+        //init view model
+        homeViewModel = ViewModelProviders.of(getActivity()).get(HomeViewModel.class);
 
         searchView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,26 +56,24 @@ public class HomeFragment extends Fragment{
                 dialog.getWindow().setLayout(1000,1500);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
+                dialog.setCanceledOnTouchOutside(true);
+
                 EditText editText = dialog.findViewById(R.id.edit_text);
                 RecyclerView recyclerView = dialog.findViewById(R.id.recycler_view);
-                //init view model
-                homeViewModel = ViewModelProviders.of(getActivity()).get(HomeViewModel.class);
-                homeViewModel.init();
 
-                Log.d(TAG, "onClick: "+homeViewModel.getData().getValue());
                 //init recycler view
-                adapter = new RecyclerViewAdapter(homeViewModel.getData().getValue());
-                LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity().getBaseContext());
+                adapter = new RecyclerViewAdapter(getActivity(), homeViewModel.getData().getValue(), dialog);
+                LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
                 recyclerView.setLayoutManager(layoutManager);
-
                 recyclerView.setAdapter(adapter);
 
-                homeViewModel.getData().observe(getViewLifecycleOwner(), new Observer<ArrayList<HomeModel>>() {
+                homeViewModel.getData().observe(getViewLifecycleOwner(), new Observer<ArrayList<PlacesData>>() {
                     @Override
-                    public void onChanged(ArrayList<HomeModel> homeModels) {
+                    public void onChanged(ArrayList<PlacesData> placesData) {
                         adapter.notifyDataSetChanged();
                     }
                 });
+
 
                 editText.addTextChangedListener(new TextWatcher() {
                     @Override
@@ -88,43 +91,9 @@ public class HomeFragment extends Fragment{
 
                     }
                 });
-
-//                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-////                        PlacesData placeName = adapter.getItem(i);
-////                        PlacesData max = note.get(i);
-////                        PlacesData curr = note2.get(i);
-////
-////                        DetailsFragment secondFragtry = new DetailsFragment();
-////                        Bundle mBundle = new Bundle();
-////                        mBundle.putString(KEY_FRG, String.valueOf(placeName));
-////                        mBundle.putString(KEY_FRG1, String.valueOf(max));
-////                        mBundle.putString(KEY_FRG2, String.valueOf(curr));
-////
-////                        secondFragtry.setArguments(mBundle);
-////
-////                        FragmentManager mFragmentManager = getFragmentManager();
-////                        FragmentTransaction mFragmentTransaction = mFragmentManager
-////                                .beginTransaction()
-////                                .replace(R.id.nav_host_fragment, secondFragtry, DetailsFragment.class.getSimpleName());
-////                        mFragmentTransaction.addToBackStack(null).commit();
-//
-//                        dialog.dismiss();
-//                    }
-//                });
             }
         });
         return v;
     }
 
-//    @Override
-//    public void added() {
-//        homeViewModel.getData().observe(getViewLifecycleOwner(), new Observer<List<PlacesData>>() {
-//            @Override
-//            public void onChanged(List<PlacesData> placesData) {
-//                adapter.notifyDataSetChanged();
-//            }
-//        });
-//    }
 }

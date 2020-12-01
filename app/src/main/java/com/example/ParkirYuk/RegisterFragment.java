@@ -27,6 +27,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class RegisterFragment extends Fragment {
     public static final String TAG = "TAG";
@@ -172,5 +173,13 @@ public class RegisterFragment extends Fragment {
                 }
             }
         });
+        String historyID = UUID.randomUUID().toString();
+        String place = null;
+        String time = null;
+        Map<String, Object> history = new HashMap<>();
+        history.put("id", historyID);
+        history.put("place", place);
+        history.put("time", time);
+        fStore.collection("users").document(userID).collection("history").document(historyID).set(history);
     }
 }

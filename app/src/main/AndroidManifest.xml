@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DetailsActivity"></activity>
+        <activity android:name=".Details.DetailsActivity"
+            android:label="Details">
+        </activity>
         <activity
             android:name=".AdminUser.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">

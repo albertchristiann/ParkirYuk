@@ -30,4 +30,8 @@
         \n\nOnly with one application, you can easily find where you parked using real time data.
         You can also see previous parking sessions,
         that you can access again.</string>
+
+    <string name="link">
+        <a href=""></a>
+    </string>
 </resources>
