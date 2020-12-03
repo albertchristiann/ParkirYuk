@@ -37,6 +37,7 @@ public class userProfileFragment extends Fragment {
     private ArrayList<String> name = new ArrayList<>(), strDate = new ArrayList<>();
     private String userID;
     private ListView listView;
+    private int count;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -85,12 +86,12 @@ public class userProfileFragment extends Fragment {
     }
 
     private void fetchHistoryData(){
-        fStore.collectionGroup("history")
+        count = 0;
+        fStore.collection("users").document(userID).collection("history")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 if (document.exists()) {
@@ -104,7 +105,9 @@ public class userProfileFragment extends Fragment {
 //                                    timestamp.setText(strDate);
                                     Log.d(TAG, "onComplete: history date "+strDate);
                                     Log.d(TAG, "onComplete: history place name"+name);
-                                    MyAdapter adapter = new MyAdapter(getActivity(), name, strDate);
+                                    count = count+1;
+                                    Log.d(TAG, "onComplete: count "+count);
+                                    MyAdapter adapter = new MyAdapter(getActivity(), name, strDate, count);
                                     listView.setAdapter(adapter);
                                 }
                             }

@@ -169,28 +169,24 @@ public class RegisterFragment extends Fragment {
                             Toast.makeText(getActivity(), "user profile created", Toast.LENGTH_SHORT).show();
                         }
                     });
-                    String historyID = UUID.randomUUID().toString();
-                    String place = null;
-                    String time = null;
-                    Map<String, Object> history = new HashMap<>();
-                    history.put("id", historyID);
-                    history.put("place", place);
-                    history.put("time", time);
-                    fStore.collection("users").document(userID).collection("history")
-                            .document(historyID)
-                            .set(history).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()){
-                                Log.d(TAG, "onComplete: history collection created");   
-                            }
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.d(TAG, "onFailure: history collection failed");
-                        }
-                    });
+//                    String historyID = UUID.randomUUID().toString();
+//                    Map<String, Object> history = new HashMap<>();
+//                    history.put("id", historyID);
+//                    fStore.collection("users").document(userID).collection("history")
+//                            .document(historyID)
+//                            .set(history).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<Void> task) {
+//                            if(task.isSuccessful()){
+//                                Log.d(TAG, "onComplete: history collection created");
+//                            }
+//                        }
+//                    }).addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//                            Log.d(TAG, "onFailure: history collection failed");
+//                        }
+//                    });
                 }else {
                     String message = task.getException().getMessage();
                     Toast.makeText(getActivity(), "Error! : "+message, Toast.LENGTH_SHORT).show();

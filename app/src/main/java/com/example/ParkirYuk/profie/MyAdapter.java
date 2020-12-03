@@ -18,13 +18,15 @@ public class MyAdapter extends ArrayAdapter<String> {
     private static final String TAG = "MyAdapter";
     Context context;
     ArrayList<String> hName = new ArrayList<>(), hTimestamp = new ArrayList<>();
-    Integer count = 0;
+    private int maxcount, count=0;
 
-    public MyAdapter (Context context, ArrayList<String> name, ArrayList<String> time){
+    public MyAdapter (Context context, ArrayList<String> name, ArrayList<String> time, int count){
         super(context, R.layout.row, R.id.namePlaceHistory, name);
         this.context = context;
         this.hName = name;
         this.hTimestamp = time;
+        this.maxcount = count;
+        Log.d(TAG, "MyAdapter: count "+count);
         Log.d(TAG, "MyAdapter: called");
         Log.d(TAG, "MyAdapter: "+hName);
         Log.d(TAG, "MyAdapter: "+ name);
@@ -39,15 +41,15 @@ public class MyAdapter extends ArrayAdapter<String> {
             LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             singleItem = layoutInflater.inflate(R.layout.row, parent, false);
             holder = new ProfileViewHolder(singleItem);
+            count=count+1;
             singleItem.setTag(holder);
-            count = count + 1;
         } else {
             holder = (ProfileViewHolder) singleItem.getTag();
-            count = count + 1;
         }
         holder.historyNamePlace.setText(hName.get(position));
         holder.historyTimestamp.setText(hTimestamp.get(position));
         Log.d(TAG, "getView: "+hTimestamp.get(position));
+        Log.d(TAG, "getView: count"+count);
         holder.historyCount.setText(String.valueOf(count));
 
         return singleItem;
@@ -55,6 +57,10 @@ public class MyAdapter extends ArrayAdapter<String> {
 
     @Override
     public int getCount() {
-        return 4;
+        if(maxcount>=4){
+            return 4;
+        }else {
+            return maxcount;
+        }
     }
 }
