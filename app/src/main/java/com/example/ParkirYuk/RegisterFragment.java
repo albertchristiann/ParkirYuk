@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.ParkirYuk.AdminUser.HomeActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -167,19 +169,34 @@ public class RegisterFragment extends Fragment {
                             Toast.makeText(getActivity(), "user profile created", Toast.LENGTH_SHORT).show();
                         }
                     });
+                    String historyID = UUID.randomUUID().toString();
+                    String place = null;
+                    String time = null;
+                    Map<String, Object> history = new HashMap<>();
+                    history.put("id", historyID);
+                    history.put("place", place);
+                    history.put("time", time);
+                    fStore.collection("users").document(userID).collection("history")
+                            .document(historyID)
+                            .set(history).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                Log.d(TAG, "onComplete: history collection created");   
+                            }
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d(TAG, "onFailure: history collection failed");
+                        }
+                    });
                 }else {
                     String message = task.getException().getMessage();
                     Toast.makeText(getActivity(), "Error! : "+message, Toast.LENGTH_SHORT).show();
                 }
             }
         });
-        String historyID = UUID.randomUUID().toString();
-        String place = null;
-        String time = null;
-        Map<String, Object> history = new HashMap<>();
-        history.put("id", historyID);
-        history.put("place", place);
-        history.put("time", time);
-        fStore.collection("users").document(userID).collection("history").document(historyID).set(history);
+        
     }
 }

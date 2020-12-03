@@ -33,7 +33,8 @@ public class InputFragment extends Fragment {
     private static final String TAG = "InputFragment";
     TextView current,max, place;
     ImageView plus,minus;
-    String adminID, sPlace, sCurrent, sMax;
+    String adminID, sPlace, placeID;
+    Integer iCurr, iMax;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
@@ -47,35 +48,84 @@ public class InputFragment extends Fragment {
         plus = v.findViewById(R.id.add);
         minus = v.findViewById(R.id.remove);
         adminID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        db.collectionGroup("places")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
-        CustomAdminOne();
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                if (document.exists()) {
+                                    Log.d(TAG, "onComplete: " + document.getId() + " => " + document.getData());
+                                    placeID = String.valueOf(document.get("id"));
+//                                    Log.d(TAG, "onComplete: "+document);
+                                }
+                            }
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG, "onFailure: ");
+            }
+        });
+        CustomAdmin();
 
         plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick: "+sCurrent);
-                Integer curr = Integer.parseInt(sCurrent);
-                curr = curr++;
                 db.collection("users")
                         .document(adminID)
                         .collection("places")
-                        .document("taman surya")
-                        .update("current", FieldValue.increment(1));
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.nav_host_fragment,new InputFragment()).addToBackStack(null).commit();
+                        .document(placeID)
+                        .update("current", FieldValue.increment(1)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        iCurr++;
+                        Log.d(TAG, "onComplete: add success");
+                        current.setText(String.valueOf(iCurr));
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "onFailure: add fail");
+                    }
+                });
+                
             }
         });
 
         minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                db.collection("users")
+                        .document(adminID)
+                        .collection("places")
+                        .document(placeID)
+                        .update("current", FieldValue.increment(-1)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        iCurr--;
+                        Log.d(TAG, "onComplete: minus success");
+                        current.setText(String.valueOf(iCurr));
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "onFailure: minus fail");
+                    }
+                });
+                
             }
         });
 
         return v;
     }
 
-    private void CustomAdminOne(){
+    private void CustomAdmin(){
         db.collection("users")
                 .document(adminID)
                 .collection("places")
@@ -87,11 +137,11 @@ public class InputFragment extends Fragment {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 sPlace = String.valueOf(document.get("place"));
-                                sCurrent = String.valueOf(document.get("current"));
-                                sMax = String.valueOf(document.get("max"));
+                                iCurr = Integer.parseInt(String.valueOf(document.get("current")));
+                                iMax = Integer.parseInt(String.valueOf(document.get("max")));
                                 place.setText(sPlace);
-                                current.setText(sCurrent);
-                                max.setText(sMax);
+                                current.setText(String.valueOf(iCurr));
+                                max.setText(String.valueOf(iMax));
                             }
                         }else {
                             Log.w(TAG, "Error getting documents.", task.getException());
