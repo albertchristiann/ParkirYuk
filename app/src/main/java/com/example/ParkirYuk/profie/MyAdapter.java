@@ -26,10 +26,10 @@ public class MyAdapter extends ArrayAdapter<String> {
         this.hName = name;
         this.hTimestamp = time;
         this.maxcount = count;
-        Log.d(TAG, "MyAdapter: count "+count);
-        Log.d(TAG, "MyAdapter: called");
-        Log.d(TAG, "MyAdapter: "+hName);
-        Log.d(TAG, "MyAdapter: "+ name);
+//        Log.d(TAG, "MyAdapter: count "+count);
+//        Log.d(TAG, "MyAdapter: called");
+//        Log.d(TAG, "MyAdapter: "+hName);
+//        Log.d(TAG, "MyAdapter: "+ name);
     }
 
     @Override
@@ -48,8 +48,8 @@ public class MyAdapter extends ArrayAdapter<String> {
         }
         holder.historyNamePlace.setText(hName.get(position));
         holder.historyTimestamp.setText(hTimestamp.get(position));
-        Log.d(TAG, "getView: "+hTimestamp.get(position));
-        Log.d(TAG, "getView: count"+count);
+//        Log.d(TAG, "getView: "+hTimestamp.get(position));
+//        Log.d(TAG, "getView: count"+count);
         holder.historyCount.setText(String.valueOf(count));
 
         return singleItem;

@@ -58,10 +58,6 @@ public class userProfileFragment extends Fragment {
         fetchProfile();
         fetchHistoryData();
 
-
-        Log.d(TAG, "onCreateView: name "+name);
-        Log.d(TAG, "onCreateView: time "+strDate);
-
         return v;
     }
 
@@ -101,10 +97,11 @@ public class userProfileFragment extends Fragment {
                                     Timestamp tstm = (Timestamp) document.getData().get("time");
                                     Date date = tstm.toDate();
                                     DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
                                     strDate.add(String.valueOf(dateFormat.format(date)));
 //                                    timestamp.setText(strDate);
-                                    Log.d(TAG, "onComplete: history date "+strDate);
-                                    Log.d(TAG, "onComplete: history place name"+name);
+//                                    Log.d(TAG, "onComplete: history date "+strDate);
+//                                    Log.d(TAG, "onComplete: history place name"+name);
                                     count = count+1;
                                     Log.d(TAG, "onComplete: count "+count);
                                     MyAdapter adapter = new MyAdapter(getActivity(), name, strDate, count);

@@ -25,20 +25,32 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.ParkirYuk.AdminUser.HomeActivity;
 import com.example.ParkirYuk.R;
 import com.example.ParkirYuk.model.PlacesData;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
-    private static final String TAG = "tag";
+    private static final String TAG = "HomeFragment";
     private HomeViewModel homeViewModel;
     private RecyclerViewAdapter adapter;
     private RecyclerViewAdapter.ViewHolder holder;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseAuth fAuth = FirebaseAuth.getInstance();
+    private String userID = fAuth.getCurrentUser().getUid();
 
     TextView searchView;
     Dialog dialog;
-    Integer count = 0;
+    String arrayCheck;
+    int count, dummy=0;
     private OnDataAdded onDataAdded;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -47,6 +59,18 @@ public class HomeFragment extends Fragment {
         searchView = v.findViewById(R.id.search);
         //init view model
         homeViewModel = ViewModelProviders.of(getActivity()).get(HomeViewModel.class);
+        db.collection("users").document(userID).collection("history").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if(queryDocumentSnapshots.getDocuments().size()>0){
+                    count = count+1;
+                    Log.d(TAG, "onSuccess: count add"+count);
+                }else{
+                    count = 0;
+                    Log.d(TAG, "onSuccess: count = 0");
+                }
+            }
+        });
 
         searchView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,9 +84,9 @@ public class HomeFragment extends Fragment {
 
                 EditText editText = dialog.findViewById(R.id.edit_text);
                 RecyclerView recyclerView = dialog.findViewById(R.id.recycler_view);
-
+                Log.d(TAG, "onClick: count check"+count);
                 //init recycler view
-                adapter = new RecyclerViewAdapter(getActivity(), homeViewModel.getData().getValue(), dialog);
+                adapter = new RecyclerViewAdapter(getActivity(), homeViewModel.getData().getValue(), dialog, count);
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(adapter);
@@ -88,12 +112,24 @@ public class HomeFragment extends Fragment {
 
                     @Override
                     public void afterTextChanged(Editable editable) {
-
+                        filter(editable.toString());
                     }
                 });
             }
         });
         return v;
+    }
+
+    private void filter(String text){
+        ArrayList<PlacesData> filteredList = new ArrayList<>();
+
+        for(PlacesData item : homeViewModel.getData().getValue()){
+            if(item.getPlaces().toLowerCase().contains(text.toLowerCase())){
+                filteredList.add(item);
+            }
+        }
+
+        adapter.filterList(filteredList);
     }
 
 }
