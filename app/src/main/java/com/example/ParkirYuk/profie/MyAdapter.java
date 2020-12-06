@@ -36,7 +36,7 @@ public class MyAdapter extends ArrayAdapter<String> {
     public View getView(int position, View convertView, ViewGroup parent) {
         View singleItem = convertView;
         ProfileViewHolder holder = null;
-        Log.d(TAG, "getView: "+singleItem);
+//        Log.d(TAG, "getView: "+singleItem);
         if (singleItem == null) {
             LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             singleItem = layoutInflater.inflate(R.layout.row, parent, false);

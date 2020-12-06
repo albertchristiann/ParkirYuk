@@ -90,27 +90,28 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 //2. untuk validasi perlu menarik semua history id yg ada karena mau di cek date nya masing"
                 if (fAuth.getCurrentUser() != null) {
                     String places = exampleList.get(position).getPlaces();
-                    String historyID = UUID.randomUUID().toString();
                     userID = fAuth.getCurrentUser().getUid();
+                    Date date = new Date();
+                    long time = date.getTime();
+                    Timestamp ts = new Timestamp(time);
+                    Map<String, Object> history = new HashMap<>();
+//                    String historyID = UUID.randomUUID().toString();
+//                    Log.d(TAG, "onClick: "+String.valueOf(date.getDate())+String.valueOf(date.getMonth())+exampleList.get(position).getPlaces().trim());
 
-                    DocumentReference docref = db.collection("users")
-                            .document(userID).collection("history").document(historyID);
+                    CollectionReference docref = db.collection("users")
+                            .document(userID).collection("history");
 
                     //klo ada dokumen
-//                    Log.d(TAG, "onClick: count"+check);
+                    Log.d(TAG, "onClick: count"+check);
                     if (check==0) {
                         //klo dokumennya gk ada baru dibuat baru
-                        Date date = new Date();
-                        long time = date.getTime();
-                        Timestamp ts = new Timestamp(time);
-                        Map<String, Object> history = new HashMap<>();
-                        history.put("id", historyID);
+//                        history.put("id", historyID);
                         history.put("place", places);
                         history.put("time", ts);
-                        docref.set(history).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        docref.add(history).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d(TAG, "onSuccess: history make");
+                            public void onSuccess(DocumentReference documentReference) {
+                                Log.d(TAG, "onSuccess: success add history");
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
@@ -137,43 +138,40 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                                             count[0] = count[0] +1;
                                             com.google.firebase.Timestamp timest = (com.google.firebase.Timestamp) document.getData().get("time");
                                             int doll = timest.toDate().getDate();
-                                            Date dateB = new Date();
-                                            long timeB = dateB.getTime();
-                                            Timestamp tsB = new Timestamp(timeB);
-                                            b = tsB.getDate();
-                                            Log.d(TAG, "onComplete: "+b+">"+doll);
-                                            Log.d(TAG, "onComplete: document "+document.getString("place")+" "+exampleList.get(position).getPlaces());
+//                                            Date dateB = new Date();
+//                                            long timeB = dateB.getTime();
+//                                            Timestamp tsB = new Timestamp(timeB);
+                                            b = ts.getDate();
+//                                            Log.d(TAG, "onComplete: "+b+">"+doll);
+//                                            Log.d(TAG, "onComplete: document "+document.getString("place")+" "+exampleList.get(position).getPlaces());
 
                                             if (b==doll && exampleList.get(position).getPlaces().equals(document.getString("place"))) {
                                                 dummy[0] = dummy[0]+1;
-                                                Log.d(TAG, "onComplete: dummy count "+ dummy[0]);
+//                                                Log.d(TAG, "onComplete: dummy count "+ dummy[0]);
                                             }
 
                                             if(b==doll && !exampleList.get(position).getPlaces().equals(document.getString("place"))){
                                                 checkContent.add(places);
-                                                Log.d(TAG, "onComplete: content "+checkContent.get(0));
+//                                                Log.d(TAG, "onComplete: content "+checkContent.get(0));
                                             }
 
-                                            Log.d(TAG, "onComplete: count "+count[0]);
-                                            Log.d(TAG, "onComplete: max "+task.getResult().size());
-                                            Log.d(TAG, "onComplete: array list"+checkContent);
-//                                            RecyclerViewAdapter:
+//                                            Log.d(TAG, "onComplete: count "+count[0]);
+//                                            Log.d(TAG, "onComplete: max "+task.getResult().size());
+//                                            Log.d(TAG, "onComplete: array list"+checkContent);
                                             if(count[0]==task.getResult().size()) {
                                                 if (b >= doll && dummy[0] == 0) {
                                                     if(checkContent.isEmpty()){
                                                         Log.d(TAG, "onComplete: empty array");
                                                     }else {
                                                         if (exampleList.get(position).getPlaces().equals(checkContent.get(0))) {
-                                                            Map<String, Object> historyB = new HashMap<>();
-                                                            historyB.put("id", historyID);
-                                                            historyB.put("place", places);
-                                                            historyB.put("time", tsB);
-                                                            Log.d(TAG, "onComplete: history make");
-                                                            docref.set(historyB).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                                            Map<String, Object> historyB = new HashMap<>();
+//                                                            history.put("id", historyID);
+                                                            history.put("place", places);
+                                                            history.put("time", ts);
+                                                            docref.add(history).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                                                 @Override
-                                                                public void onSuccess(Void aVoid) {
-                                                                    Log.d(TAG, "onSuccess: history make" + historyB);
-
+                                                                public void onSuccess(DocumentReference documentReference) {
+                                                                    Log.d(TAG, "onSuccess: history make");
                                                                 }
                                                             }).addOnFailureListener(new OnFailureListener() {
                                                                 @Override
