@@ -161,6 +161,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                                             if(count[0]==task.getResult().size()) {
                                                 if (b >= doll && dummy[0] == 0) {
                                                     if(checkContent.isEmpty()){
+                                                        //udh hari baru / hari sebelumnya
+                                                        if(b>doll){
+                                                            history.put("place", places);
+                                                            history.put("time", ts);
+                                                            docref.add(history).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                                @Override
+                                                                public void onSuccess(DocumentReference documentReference) {
+                                                                    Log.d(TAG, "onSuccess: history make");
+                                                                }
+                                                            }).addOnFailureListener(new OnFailureListener() {
+                                                                @Override
+                                                                public void onFailure(@NonNull Exception e) {
+                                                                    Log.d(TAG, "onFailure: history fail");
+                                                                }
+                                                            });
+                                                        }
                                                         Log.d(TAG, "onComplete: empty array");
                                                     }else {
                                                         if (exampleList.get(position).getPlaces().equals(checkContent.get(0))) {
