@@ -42,16 +42,13 @@ public class HomeFragment extends Fragment {
     private static final String TAG = "HomeFragment";
     private HomeViewModel homeViewModel;
     private RecyclerViewAdapter adapter;
-    private RecyclerViewAdapter.ViewHolder holder;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth fAuth = FirebaseAuth.getInstance();
-    private String userID = fAuth.getCurrentUser().getUid();
+    private String userID;
 
     TextView searchView;
     Dialog dialog;
-    String arrayCheck;
-    int count, dummy=0;
-    private OnDataAdded onDataAdded;
+    int count;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -59,18 +56,21 @@ public class HomeFragment extends Fragment {
         searchView = v.findViewById(R.id.search);
         //init view model
         homeViewModel = ViewModelProviders.of(getActivity()).get(HomeViewModel.class);
-        db.collection("users").document(userID).collection("history").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if(queryDocumentSnapshots.getDocuments().size()>0){
-                    count = count+1;
-                    Log.d(TAG, "onSuccess: count add"+count);
-                }else{
-                    count = 0;
-                    Log.d(TAG, "onSuccess: count = 0");
+        if (fAuth.getCurrentUser() != null) {
+            userID = fAuth.getCurrentUser().getUid();
+            db.collection("users").document(userID).collection("history").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    if (queryDocumentSnapshots.getDocuments().size() > 0) {
+                        count = count + 1;
+                        Log.d(TAG, "onSuccess: count add" + count);
+                    } else {
+                        count = 0;
+                        Log.d(TAG, "onSuccess: count = 0");
+                    }
                 }
-            }
-        });
+            });
+        }
 
         searchView.setOnClickListener(new View.OnClickListener() {
             @Override
