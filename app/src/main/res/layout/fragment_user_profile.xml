@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.ParkirYuk.profie.userProfileFragment"
+    tools:context="com.example.ParkirYuk.profile.userProfileFragment"
     android:background="@color/colorWhite">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -37,12 +37,25 @@
             tools:text="Email Address" />
 
         <TextView
+            android:id="@+id/changePassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_light"
+            android:textColor="@color/biru"
+            android:textSize="20sp"
+            android:text="Change Password"
+            android:layout_marginTop="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/getUsername"/>
+
+        <TextView
             android:id="@+id/TextviewBox"
             android:layout_width="260dp"
             android:layout_height="250dp"
             android:layout_marginTop="30dp"
             android:background="@drawable/box"
-            app:layout_constraintTop_toBottomOf="@id/getUsername"
+            app:layout_constraintTop_toBottomOf="@id/changePassword"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 

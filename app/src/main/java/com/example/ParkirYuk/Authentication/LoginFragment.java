@@ -1,4 +1,4 @@
-package com.example.ParkirYuk;
+package com.example.ParkirYuk.Authentication;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ParkirYuk.AdminUser.HomeActivity;
+import com.example.ParkirYuk.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -25,7 +26,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class LoginFragment extends Fragment {
     EditText femail, fpassword;
     Button fLogin;
-    TextView fRegisterBtn;
+    TextView fRegisterBtn, forgotPass;
     FirebaseAuth fAuth;
     Boolean isDataValid = false;
 
@@ -38,7 +39,7 @@ public class LoginFragment extends Fragment {
         fLogin = (Button) v.findViewById(R.id.button_login);
         fRegisterBtn = (TextView) v.findViewById(R.id.Register);
         fAuth = FirebaseAuth.getInstance();
-
+        forgotPass = v.findViewById(R.id.forgotPassword);
 
         if (fAuth.getCurrentUser() != null){
             Intent home = new Intent(getActivity(), HomeActivity.class);
@@ -54,6 +55,18 @@ public class LoginFragment extends Fragment {
                 FragmentManager fragmentManager = getParentFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.nav_host_fragment, loginFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+
+        forgotPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment forgotPassword = new forgotPasswordFragment();
+                FragmentManager fragmentManager = getParentFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.nav_host_fragment, forgotPassword);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }

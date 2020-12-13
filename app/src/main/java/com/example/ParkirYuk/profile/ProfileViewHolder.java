@@ -1,4 +1,4 @@
-package com.example.ParkirYuk.profie;
+package com.example.ParkirYuk.profile;
 
 import android.view.View;
 import android.widget.TextView;

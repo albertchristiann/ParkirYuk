@@ -1,4 +1,4 @@
-package com.example.ParkirYuk.Details;
+package com.example.ParkirYuk;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

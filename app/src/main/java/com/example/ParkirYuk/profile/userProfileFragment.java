@@ -1,9 +1,11 @@
-package com.example.ParkirYuk.profie;
+package com.example.ParkirYuk.profile;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,7 +33,7 @@ import java.util.Date;
 
 public class userProfileFragment extends Fragment {
     private static final String TAG = "userProfileFragment";
-    private TextView username,email, place, countNumber, timestamp;
+    private TextView username,email, place, countNumber, timestamp, changePassword;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     private ArrayList<String> name = new ArrayList<>(), strDate = new ArrayList<>();
@@ -49,6 +51,7 @@ public class userProfileFragment extends Fragment {
         countNumber = v.findViewById(R.id.countHistory);
         timestamp = v.findViewById(R.id.timestamp);
         listView = v.findViewById(R.id.listView1);
+        changePassword = v.findViewById(R.id.changePassword);
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
@@ -57,6 +60,18 @@ public class userProfileFragment extends Fragment {
 
         fetchProfile();
         fetchHistoryData();
+
+        changePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment changePassword = new changePasswordFragment();
+                FragmentManager fragmentManager = getParentFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.nav_host_fragment, changePassword);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
 
         return v;
     }

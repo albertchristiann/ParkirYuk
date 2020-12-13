@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.ParkirYuk.LoginFragment"
+    tools:context="com.example.ParkirYuk.Authentication.LoginFragment"
     android:background="@color/colorWhite">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,19 +22,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
-        <Button
-            android:id="@+id/button_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/button_shape"
-            android:text="Login"
-            android:textColor="#FFFFFF"
-            android:fontFamily="@font/montserrat_light"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
 
         <TextView
             android:id="@+id/textViewEmail"
@@ -96,6 +84,8 @@
             app:layout_constraintStart_toEndOf="@id/textViewPassword"
             app:layout_constraintTop_toBottomOf="@+id/textViewEmail" />
 
+
+
         <EditText
             android:id="@+id/password"
             android:layout_width="@dimen/layout_edit_text_width"
@@ -114,6 +104,31 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/forgotPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/textView3"
+            app:layout_constraintEnd_toEndOf="@id/password"
+            android:text="Forgot Your Password ?"
+            android:fontFamily="@font/montserrat_light"
+            android:textSize="12sp"
+            android:layout_marginTop="10dp"/>
+
+        <Button
+            android:id="@+id/button_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/button_shape"
+            android:text="Login"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/montserrat_light"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/forgotPassword" />
 
         <TextView
             android:id="@+id/Register"

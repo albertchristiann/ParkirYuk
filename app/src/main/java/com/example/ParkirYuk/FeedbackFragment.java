@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -30,10 +31,10 @@ import java.util.Map;
 import java.util.UUID;
 
 public class FeedbackFragment extends Fragment {
-    public static final String TAG = "TAG";
+    private static final String TAG = "FeedbackFragment";
     Button submit;
     EditText email, feedback;
-    FirebaseFirestore fStore;
+    FirebaseFirestore fStore = FirebaseFirestore.getInstance();
 
 
     @Override
@@ -45,7 +46,7 @@ public class FeedbackFragment extends Fragment {
         feedback =(EditText) v.findViewById(R.id.editTextFeedback);
         submit = (Button) v.findViewById(R.id.submitFeedback);
 
-        fStore = FirebaseFirestore.getInstance();
+//        fStore = FirebaseFirestore.getInstance();
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,22 +66,20 @@ public class FeedbackFragment extends Fragment {
         String id = UUID.randomUUID().toString();
 
         Map<String, Object> doc = new HashMap<>();
-        doc.put("id", id);
+//        doc.put("id", id);
         doc.put("Email", email);
         doc.put("Feedback", description);
 
-        fStore.collection("Feedbacks").document(id).set(doc)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
+        fStore.collection("feedback").add(doc)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(getActivity(), "Uploaded", Toast.LENGTH_SHORT).show();
-
+                    public void onSuccess(DocumentReference documentReference) {
+                        Toast.makeText(getActivity(), "Feedback succesfull", Toast.LENGTH_SHORT).show();
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
+                }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getActivity(),"Please Login First", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),"Feedback Error", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
