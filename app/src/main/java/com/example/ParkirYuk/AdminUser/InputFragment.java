@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ParkirYuk.R;
 import com.example.ParkirYuk.model.PlacesData;
@@ -48,7 +49,7 @@ public class InputFragment extends Fragment {
         plus = v.findViewById(R.id.add);
         minus = v.findViewById(R.id.remove);
         adminID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        db.collectionGroup("places")
+        db.collection("users").document(adminID).collection("places")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -72,60 +73,75 @@ public class InputFragment extends Fragment {
                 Log.d(TAG, "onFailure: ");
             }
         });
+
         CustomAdmin();
 
         plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                db.collection("users")
-                        .document(adminID)
-                        .collection("places")
-                        .document(placeID)
-                        .update("current", FieldValue.increment(1)).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        iCurr++;
-                        Log.d(TAG, "onComplete: add success");
-                        current.setText(String.valueOf(iCurr));
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d(TAG, "onFailure: add fail");
-                    }
-                });
-                
+                if(iCurr<iMax) {
+                    db.collection("users")
+                            .document(adminID)
+                            .collection("places")
+                            .document(placeID)
+                            .update("current", FieldValue.increment(1)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                iCurr++;
+                                Log.d(TAG, "onComplete: add success");
+                                current.setText(String.valueOf(iCurr));
+                            }
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d(TAG, "onFailure: add fail");
+                        }
+                    });
+                }else{
+                    Toast.makeText(getActivity(), "Full", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                db.collection("users")
-                        .document(adminID)
-                        .collection("places")
-                        .document(placeID)
-                        .update("current", FieldValue.increment(-1)).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        iCurr--;
-                        Log.d(TAG, "onComplete: minus success");
-                        current.setText(String.valueOf(iCurr));
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d(TAG, "onFailure: minus fail");
-                    }
-                });
+                if(iCurr>=0) {
+                    db.collection("users")
+                            .document(adminID)
+                            .collection("places")
+                            .document(placeID)
+                            .update("current", FieldValue.increment(-1)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                iCurr--;
+                                Log.d(TAG, "onComplete: minus success");
+                                current.setText(String.valueOf(iCurr));
+                            }
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d(TAG, "onFailure: minus fail");
+                        }
+                    });
+                }else{
+                    Toast.makeText(getActivity(), "Minimum Data", Toast.LENGTH_SHORT).show();
+                }
                 
             }
         });
 
+
+
+
         return v;
     }
 
-    private void CustomAdmin(){
+    public void CustomAdmin(){
         db.collection("users")
                 .document(adminID)
                 .collection("places")
@@ -142,6 +158,7 @@ public class InputFragment extends Fragment {
                                 place.setText(sPlace);
                                 current.setText(String.valueOf(iCurr));
                                 max.setText(String.valueOf(iMax));
+                                Log.d(TAG, "onComplete: current number make "+iCurr);
                             }
                         }else {
                             Log.w(TAG, "Error getting documents.", task.getException());

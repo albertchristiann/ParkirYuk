@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ParkirYuk.AdminUser.HomeActivity;
 import com.example.ParkirYuk.R;
@@ -86,6 +87,7 @@ public class DetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 refreshData();
+
 //                userID = fStore.collection("users").document(fAuth.getUid())
 //                        .collection("place").document(placeID).getId();
 //                Query a = fStore.collectionGroup("places").whereEqualTo("id", placeID);
@@ -116,6 +118,7 @@ public class DetailsActivity extends AppCompatActivity {
                     if(document.exists() && document != null){
                         currNum = Integer.parseInt(String.valueOf(document.get("current")));
                         validation();
+                        Toast.makeText(DetailsActivity.this, "Refresh Succesfull", Toast.LENGTH_SHORT).show();
                         current.setText(String.valueOf(currNum));
                     }else{
                         Log.d(TAG, "onComplete: error refresh"+document.getData());

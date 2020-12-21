@@ -133,8 +133,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     public void userAdmin(){
         adminID = fAuth.getCurrentUser().getUid();
-        if(adminID.equals("zpw7JrZMWrNZeGyJElriCPHnqDS2") || adminID.equals("UBnlDoa6ZHPjVseSQjOaRx4MUKp1")
-                || adminID.equals("Q1TxWRNKcPR5rxliUYKBiIvHx8J2") || adminID.equals("KVzyGj4XsqTjxUwagdYpgBMbog72")){
+        if(adminID.equals("UBnlDoa6ZHPjVseSQjOaRx4MUKp1") || adminID.equals("Q1TxWRNKcPR5rxliUYKBiIvHx8J2")
+                || adminID.equals("KVzyGj4XsqTjxUwagdYpgBMbog72")){
             menu.findItem(R.id.nav_input).setVisible(true);
         }
     }
