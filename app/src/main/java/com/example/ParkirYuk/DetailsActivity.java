@@ -80,28 +80,7 @@ public class DetailsActivity extends AppCompatActivity {
         });
         address.setText(placeAddress);
 
-        if (placeName != null && placeName != ""){ // i = mobil yang msk, m = kapasitas max
-            place.setText(placeName);
-            max.setText(String.valueOf(maxNum));
-            Integer pink = maxNum/3;
-            Integer merah = (maxNum*2)/3;
-            Integer merahtua = (maxNum*2)/3;
-            if(currNum <= pink){
-                current.setText(String.valueOf(currNum));
-                current.setTextColor(getResources().getColor(R.color.merahmuda));
-            }else if(currNum <= merah){
-                //(i*2)/3 <= i
-                current.setText(String.valueOf(currNum));
-                current.setTextColor(getResources().getColor(R.color.merah));
-            }else{
-                current.setText(String.valueOf(currNum));
-                current.setTextColor(getResources().getColor(R.color.merahtua));
-            }
-        } else {
-            place.setText("-");
-            current.setText("0");
-            max.setText("0");
-        }
+        validation();
 
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,6 +115,7 @@ public class DetailsActivity extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if(document.exists() && document != null){
                         currNum = Integer.parseInt(String.valueOf(document.get("current")));
+                        validation();
                         current.setText(String.valueOf(currNum));
                     }else{
                         Log.d(TAG, "onComplete: error refresh"+document.getData());
@@ -150,5 +130,30 @@ public class DetailsActivity extends AppCompatActivity {
                 Log.d(TAG, "onFailure: refresh");
             }
         });
+    }
+
+    private void validation(){
+        if (placeName != null && placeName != ""){ // i = mobil yang msk, m = kapasitas max
+            place.setText(placeName);
+            max.setText(String.valueOf(maxNum));
+            Integer pink = maxNum/3;
+            Integer merah = (maxNum*2)/3;
+            Integer merahtua = (maxNum*2)/3;
+            if(currNum <= pink){
+                current.setText(String.valueOf(currNum));
+                current.setTextColor(getResources().getColor(R.color.merahmuda));
+            }else if(currNum <= merah){
+                //(i*2)/3 <= i
+                current.setText(String.valueOf(currNum));
+                current.setTextColor(getResources().getColor(R.color.merah));
+            }else{
+                current.setText(String.valueOf(currNum));
+                current.setTextColor(getResources().getColor(R.color.merahtua));
+            }
+        } else {
+            place.setText("-");
+            current.setText("0");
+            max.setText("0");
+        }
     }
 }

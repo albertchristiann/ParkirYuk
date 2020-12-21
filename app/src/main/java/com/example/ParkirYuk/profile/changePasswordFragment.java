@@ -26,7 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class changePasswordFragment extends Fragment {
     private static final String TAG = "changePasswordFragment";
     private EditText newPass, currentPass, confirmPass;
-    private FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+//    private FirebaseFirestore fStore = FirebaseFirestore.getInstance();
     private FirebaseAuth fAuth = FirebaseAuth.getInstance();
     private String userID = fAuth.getCurrentUser().getUid(), currentPassword, newPassword, confirmPassword, confirmCurrent;
     private Button Submit;
@@ -42,40 +42,41 @@ public class changePasswordFragment extends Fragment {
         confirmPass = v.findViewById(R.id.confirmPassword);
         Submit = v.findViewById(R.id.button_submit);
 
-        DocumentReference docRef = fStore.collection("users").document(userID);
-
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()){
-                    DocumentSnapshot doc = task.getResult();
-                    if(doc.exists()){
-                        confirmCurrent = doc.getString("Password");
-                    }
-                }
-            }
-        });
+//        DocumentReference docRef = fStore.collection("users").document(userID);
+////
+////        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+////            @Override
+////            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+////                if(task.isSuccessful()){
+////                    DocumentSnapshot doc = task.getResult();
+////                    if(doc.exists()){
+////                        confirmCurrent = doc.getString("Password");
+////                    }
+////                }
+////            }
+////        });
 
         Submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 validateData(currentPass);
                 validateData(newPass);
-                validateData(currentPass);
+                validateData(confirmPass);
 
-                if(isDataValid) {
+                if (isDataValid) {
                     currentPassword = currentPass.getText().toString();
                     newPassword = newPass.getText().toString();
                     confirmPassword = confirmPass.getText().toString();
 
-                    if (currentPassword.equals(confirmCurrent)) {
+//                    if (currentPassword.equals(confirmCurrent)) {
+                    if (currentPassword.equals(newPassword)) {
+                        newPass.setError("new password cannot be the same with previous password");
+                    } else {
                         if (newPassword.equals(confirmPassword)) {
-                            if (newPassword.equals(currentPassword)) {
-                                newPass.setError("new password cannot be the same as current password !");
-                            } else {
-                                docRef.update("Password", newPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
+                            fAuth.getCurrentUser().updatePassword(newPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
                                         Toast.makeText(getActivity(), "Update Password Succesfull", Toast.LENGTH_SHORT).show();
                                         Fragment profile = new userProfileFragment();
                                         FragmentManager fragmentManager = getParentFragmentManager();
@@ -84,19 +85,20 @@ public class changePasswordFragment extends Fragment {
                                         fragmentTransaction.addToBackStack(null);
                                         fragmentTransaction.commit();
                                     }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(getActivity(), "Update Password Failed", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                            }
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(getActivity(), "Update Authentication Password Failed", Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         } else {
                             confirmPass.setError("confirm password is not same !");
                         }
-                    } else {
-                        currentPass.setError("Wrong Password");
                     }
+//                    } else {
+//                        currentPass.setError("Wrong Password");
+//                    }
                 }
             }
         });

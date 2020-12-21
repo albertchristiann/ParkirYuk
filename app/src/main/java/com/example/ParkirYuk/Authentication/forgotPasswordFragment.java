@@ -19,6 +19,8 @@ import com.example.ParkirYuk.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class forgotPasswordFragment extends Fragment {
     private static final String TAG = "forgotPasswordFragment";
@@ -43,23 +45,13 @@ public class forgotPasswordFragment extends Fragment {
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(getActivity(), "Reset Password Sended", Toast.LENGTH_SHORT).show();
+
                         }else{
                             Toast.makeText(getActivity(), "Email Not Available", Toast.LENGTH_SHORT).show();
                             Log.d(TAG, "onComplete: Error Email Send");
                         }
                     }
                 });
-//                String to = email.getText().toString();
-//
-//                Intent Iemail = new Intent(Intent.ACTION_SEND);
-//                Iemail.putExtra(Intent.EXTRA_EMAIL, new String[]{to});
-//                Iemail.putExtra(Intent.EXTRA_SUBJECT, "subject");
-//                Iemail.putExtra(Intent.EXTRA_TEXT, "message");
-//
-//                //need this to prompts email client only
-//                Iemail.setType("message/rfc822");
-//
-//                startActivity(Intent.createChooser(Iemail, "Email Send"));
             }
         });
 
