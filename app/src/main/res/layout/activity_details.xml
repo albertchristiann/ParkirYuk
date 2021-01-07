@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.ParkirYuk.DetailsActivity">
+    tools:context="com.example.ParkirYuk.DetailsActivity"
+    android:background="?attr/backgroundColor">
 
     <ImageView
         android:id="@+id/backButton"
@@ -25,7 +26,7 @@
         android:src="@mipmap/logo_parkir"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/backButton" />
 
     <TextView
         android:id="@+id/textView"
@@ -47,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:fontFamily="@font/montserrat_light"
-        android:textColor="@color/colorBlack"
+        android:textColor="?attr/textColor"
         android:textSize="20sp"
         android:textAllCaps="true"
         app:layout_constraintTop_toTopOf="@+id/textView"
@@ -75,6 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="51dp"
         android:text="/"
+        android:textColor="?attr/textColor"
         android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@+id/place"
         app:layout_constraintStart_toStartOf="@id/textView"
@@ -88,7 +90,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="50dp"
         android:fontFamily="@font/montserrat_light"
-        android:textColor="@color/colorBlack"
+        android:textColor="?attr/textColor"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/atau"
         app:layout_constraintTop_toBottomOf="@+id/place"
@@ -101,7 +103,7 @@
         android:layout_marginTop="50dp"
         android:layout_marginRight="15dp"
         android:fontFamily="@font/montserrat_light"
-        android:textColor="@color/colorBlack"
+        android:textColor="?attr/textColor"
         android:textSize="20sp"
         android:textFontWeight="@android:integer/status_bar_notification_info_maxnum"
         app:layout_constraintTop_toBottomOf="@+id/place"

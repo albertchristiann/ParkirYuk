@@ -11,11 +11,11 @@
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
-    <fragment
-        android:id="@+id/nav_login"
-        android:name="com.example.ParkirYuk.Authentication.LoginFragment"
-        android:label="Login"
-        tools:layout="@layout/fragment_login" />
+<!--    <fragment-->
+<!--        android:id="@+id/nav_login"-->
+<!--        android:name="com.example.ParkirYuk.Authentication.LoginFragment"-->
+<!--        android:label="Login"-->
+<!--        tools:layout="@layout/fragment_login" />-->
 
     <fragment
         android:id="@+id/nav_about_us"
@@ -40,5 +40,11 @@
         android:name="com.example.ParkirYuk.AdminUser.InputFragment"
         android:label="Input Place"
         tools:layout="@layout/fragment_input" />
+
+    <activity
+        android:id="@+id/nav_setting"
+        android:name="com.example.ParkirYuk.SettingActivity"
+        android:label="Setting"
+        tools:layout="@layout/activity_setting" />
 
 </navigation>

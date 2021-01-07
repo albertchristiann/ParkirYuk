@@ -13,7 +13,7 @@
         android:layout_marginStart="15dp"
         android:layout_marginLeft="15dp"
         android:textSize="12sp"
-        android:textColor="@color/colorBlack"/>
+        android:textColor="?attr/textColor"/>
 
     <TextView
         android:id="@+id/namePlaceHistory"
@@ -23,7 +23,7 @@
         android:layout_marginStart="12dp"
         android:layout_marginLeft="12dp"
         android:textSize="12sp"
-        android:textColor="@color/colorBlack"/>
+        android:textColor="?attr/textColor"/>
 
     <TextView
         android:id="@+id/timestamp"
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="13dp"
         android:fontFamily="@font/montserrat_light"
-        android:textColor="@color/colorBlack"
+        android:textColor="?attr/textColor"
         android:textSize="12sp"
         android:text="timestamp"/>
 

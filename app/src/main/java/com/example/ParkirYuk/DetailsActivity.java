@@ -44,9 +44,14 @@ public class DetailsActivity extends AppCompatActivity {
     String placeName, placeAddressLink, userID, placeID, placeAddress;
     Integer maxNum, currNum;
     FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+    SharedPref sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        sharedPref = new SharedPref(this);
+        if(sharedPref.loadNightModeState()==true){
+            setTheme(R.style.darkTheme);
+        }else setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
         place = findViewById(R.id.place);

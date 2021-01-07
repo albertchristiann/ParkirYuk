@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.ParkirYuk.AboutUsFragment"
-    android:background="@color/colorWhite">
+    android:background="?attr/backgroundColor">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,7 +19,7 @@
             android:layout_marginTop="50dp"
             android:fontFamily="@font/montserrat_light"
             android:text="@string/about_us"
-            android:textColor="@color/colorBlack"
+            android:textColor="?attr/textColor"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:text="version 1.0"
             android:textSize="18sp"
-            android:textColor="@color/colorBlack"
+            android:textColor="?attr/textColor"
             app:layout_constraintTop_toBottomOf="@id/aboutUsText"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

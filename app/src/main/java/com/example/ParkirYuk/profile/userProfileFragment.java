@@ -51,7 +51,6 @@ public class userProfileFragment extends Fragment {
         countNumber = v.findViewById(R.id.countHistory);
         timestamp = v.findViewById(R.id.timestamp);
         listView = v.findViewById(R.id.listView1);
-        changePassword = v.findViewById(R.id.changePassword);
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
@@ -61,17 +60,6 @@ public class userProfileFragment extends Fragment {
         fetchProfile();
         fetchHistoryData();
 
-        changePassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment changePassword = new changePasswordFragment();
-                FragmentManager fragmentManager = getParentFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment, changePassword);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            }
-        });
 
         return v;
     }

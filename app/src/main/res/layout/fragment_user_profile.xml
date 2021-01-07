@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.ParkirYuk.profile.userProfileFragment"
-    android:background="@color/colorWhite">
+    android:background="?attr/backgroundColor">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,40 +14,27 @@
             android:id="@+id/getUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="40dp"
             android:fontFamily="@font/montserrat_light"
-            android:textColor="@color/colorBlack"
+            android:textColor="?attr/textColor"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/getEmail"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="Username" />
 
         <TextView
             android:id="@+id/getEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:fontFamily="@font/montserrat_light"
-            android:textColor="@color/colorBlack"
+            android:textColor="?attr/textColor"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/getUsername"
             tools:text="Email Address" />
-
-        <TextView
-            android:id="@+id/changePassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_light"
-            android:textColor="@color/biru"
-            android:textSize="20sp"
-            android:text="Change Password"
-            android:layout_marginTop="15dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/getUsername"/>
 
         <TextView
             android:id="@+id/TextviewBox"
@@ -55,7 +42,7 @@
             android:layout_height="250dp"
             android:layout_marginTop="30dp"
             android:background="@drawable/box"
-            app:layout_constraintTop_toBottomOf="@id/changePassword"
+            app:layout_constraintTop_toBottomOf="@id/getEmail"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -66,7 +53,7 @@
             android:text="History"
             android:fontFamily="@font/montserrat_light"
             android:textSize="20sp"
-            android:textColor="@color/colorBlack"
+            android:textColor="?attr/textColor"
             android:layout_marginTop="20dp"
             app:layout_constraintTop_toTopOf="@id/TextviewBox"
             app:layout_constraintStart_toStartOf="@id/TextviewBox"

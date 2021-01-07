@@ -26,6 +26,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="Parkir Yuk"
+        android:textColor="?attr/textNavColor"
         android:fontFamily="@font/montserrat_light"
         android:textSize="20sp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
@@ -37,5 +38,6 @@
         android:fontFamily="@font/montserrat_light"
         android:visibility="gone"
         android:text="Username"
+        android:textColor="?attr/textNavColor"
         android:textSize="15sp"/>
 </LinearLayout>
