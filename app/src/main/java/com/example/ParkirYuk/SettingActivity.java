@@ -11,6 +11,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.ParkirYuk.AdminUser.HomeActivity;
+import com.example.ParkirYuk.profile.changePasswordActivity;
 
 public class SettingActivity extends AppCompatActivity {
     private Switch myswitch;
@@ -42,6 +43,14 @@ public class SettingActivity extends AppCompatActivity {
                     sharedPref.setNightModeState(false);
                     restartApp();
                 }
+            }
+        });
+
+        changePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent change = new Intent(getApplicationContext(), changePasswordActivity.class);
+                startActivity(change);
             }
         });
 

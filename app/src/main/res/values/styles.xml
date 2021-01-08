@@ -36,7 +36,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="buttonColor">@color/colorWhite</item>
-        <item name="buttonTextColor">@color/colorWhite</item>
+        <item name="buttonTextColor">@color/colorBlack</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

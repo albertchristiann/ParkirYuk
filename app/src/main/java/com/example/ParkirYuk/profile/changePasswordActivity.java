@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.ParkirYuk.R;
 import com.example.ParkirYuk.SettingActivity;
+import com.example.ParkirYuk.SharedPref;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -27,9 +28,14 @@ public class changePasswordActivity extends AppCompatActivity {
     private String currentPassword, newPassword, confirmPassword, confirmCurrent;
     private Button Submit;
     private Boolean isDataValid;
+    SharedPref sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        sharedPref = new SharedPref(this);
+        if(sharedPref.loadNightModeState()==true){
+            setTheme(R.style.darkTheme);
+        }else setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
         newPass = findViewById(R.id.newPassword);
