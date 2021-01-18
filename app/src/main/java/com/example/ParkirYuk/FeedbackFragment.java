@@ -46,20 +46,50 @@ public class FeedbackFragment extends Fragment {
         feedback =(EditText) v.findViewById(R.id.editTextFeedback);
         submit = (Button) v.findViewById(R.id.submitFeedback);
 
-//        fStore = FirebaseFirestore.getInstance();
-
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String emailString = email.getText().toString();
-                String description = feedback.getText().toString();
-                uploadData(emailString, description);
-                email.setText("");
-                feedback.setText("");
+                createNewFeedback();
             }
         });
 
         return v;
+    }
+
+    private boolean validateEmail() {
+        String emailString = email.getText().toString();
+
+        if(emailString.isEmpty()){
+            email.setError("Field cannot be empty");
+            return false;
+        }else{
+            email.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validateFeedback() {
+        String description = feedback.getText().toString();
+
+        if(description.isEmpty()){
+            feedback.setError("Field cannot be empty");
+            return false;
+        }else{
+            feedback.setError(null);
+            return true;
+        }
+    }
+
+    public void createNewFeedback(){
+        if (!validateEmail() | !validateFeedback()){
+            return;
+        }
+
+        String emailString = email.getText().toString();
+        String description = feedback.getText().toString();
+        uploadData(emailString, description);
+        email.setText("");
+        feedback.setText("");
     }
 
     public void uploadData(String email, String description){
