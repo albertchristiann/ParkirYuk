@@ -61,7 +61,8 @@ public class Repository {
                                             ,String.valueOf(document.get("link"))
                                             ,String.valueOf(document.get("id"))
                                             ,String.valueOf(document.get("userID"))
-                                            ,String.valueOf(document.get("address")));
+                                            ,String.valueOf(document.get("address"))
+                                            ,String.valueOf(document.get("bookingLink")));
                                     dataSet.add(model);
 //                                    Log.d(TAG, "onComplete: "+document);
                                 }

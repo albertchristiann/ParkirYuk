@@ -4,13 +4,13 @@ import android.util.Log;
 
 public class PlacesData {
     private static final String TAG = "tag";
-    private String mplaces, link, id, userID, address;
+    private String mplaces, link, id, userID, address, bookingLink;
     private int mcurrent, mmax;
 
     public PlacesData(){
     }
 
-    public PlacesData(String places, int current, int max, String link, String id, String userID, String address){
+    public PlacesData(String places, int current, int max, String link, String id, String userID, String address, String bookingLink){
         this.mplaces = places;
         this.mcurrent = current;
         this.mmax = max;
@@ -18,6 +18,15 @@ public class PlacesData {
         this.id = id;
         this.userID = userID;
         this.address = address;
+        this.bookingLink = bookingLink;
+    }
+
+    public String getBookingLink() {
+        return bookingLink;
+    }
+
+    public void setBookingLink(String bookingLink) {
+        this.bookingLink = bookingLink;
     }
 
     public String getAddress() {

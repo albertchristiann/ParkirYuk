@@ -78,6 +78,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 intent.putExtra("place_id", exampleList.get(position).getId());
                 intent.putExtra("place_user_id", exampleList.get(position).getUserID());
                 intent.putExtra("place_address", exampleList.get(position).getAddress());
+                intent.putExtra("booking_link", exampleList.get(position).getBookingLink());
                 address = exampleList.get(position).getLink();
 
 //                Log.d(TAG, "onClick: repeat on click ");

@@ -38,10 +38,10 @@ import java.util.ArrayList;
 public class DetailsActivity extends AppCompatActivity {
     private static final String TAG = "DetailsActivity";
     private ArrayList<PlacesData> arrayList = new ArrayList<>();
-    TextView place,current,max, address;
+    TextView place,current,max, address,booking;
     ImageView back;
     ImageButton refresh;
-    String placeName, placeAddressLink, userID, placeID, placeAddress;
+    String placeName, placeAddressLink, userID, placeID, placeAddress, bookingLink;
     Integer maxNum, currNum;
     FirebaseFirestore fStore = FirebaseFirestore.getInstance();
     SharedPref sharedPref;
@@ -60,6 +60,7 @@ public class DetailsActivity extends AppCompatActivity {
         back = findViewById(R.id.backButton);
         refresh = findViewById(R.id.refresh);
         address = findViewById(R.id.addressLink);
+        booking = findViewById(R.id.bookingLink);
 
         placeName = getIntent().getStringExtra("place_name");
         maxNum = getIntent().getIntExtra("place_max_num", 0);
@@ -68,6 +69,7 @@ public class DetailsActivity extends AppCompatActivity {
         placeID = getIntent().getStringExtra("place_id");
         userID = getIntent().getStringExtra("place_user_id");
         placeAddress = getIntent().getStringExtra("place_address");
+        bookingLink = getIntent().getStringExtra("booking_link");
         Log.d(TAG, "onCreate: if "+placeName+" "+maxNum+" "+currNum);
         Log.d(TAG, "onCreate: "+placeID);
         Log.d(TAG, "onCreate: "+maxNum+" "+currNum+" "+placeName);
@@ -85,6 +87,15 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
         address.setText(placeAddress);
+
+        booking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse(bookingLink);
+                Intent a = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(a);
+            }
+        });
 
         validation();
 
